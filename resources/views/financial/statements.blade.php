@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container">
         <div class="flex justify-between items-center mb-4">
-            <h1 class="text-2xl">Financial Statements for {{ $financial->financial_name }}</h1>
+            <h1 class="text-4xl font-bold">Financial Statements for {{ $financial->financial_name }}</h1>
             <button onclick="openModal()" class="bg-blue-500 text-white px-4 py-2 rounded">Add Statement</button>
         </div>
 

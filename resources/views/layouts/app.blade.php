@@ -16,6 +16,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
+            @include('layouts.sidebar')
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -28,9 +29,15 @@
             @endisset
 
             <!-- Page Content -->
-            <main class="sm:px-6 lg:px-8 mt-10">
+            <main class="sm:ml-64 pl-4 pr-4 sm:pr-6 lg:pr-10 py-[89px]">
                 {{ $slot }}
             </main>
         </div>
     </body>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('default-sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+        }
+    </script>
 </html>
