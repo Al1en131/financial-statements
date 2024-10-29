@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Financial extends Model
+class FinancialStatement extends Model
 {
     use HasFactory;
 
     protected $guarded;
 
-    public function statements()
+    public function financial()
     {
-        return $this->hasMany(FinancialStatement::class);
+        return $this->belongsTo(Financial::class);
     }
 }

@@ -16,8 +16,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/financial', [FinancialController::class, 'index'])->name('financial.index');
+    Route::post('/financial', [FinancialController::class, 'storeFinancial'])->name('financial.store');
+    Route::get('/financial/{financial}/statements', [FinancialController::class, 'showStatements'])->name('financial.showStatements');
+    Route::post('/financial/{financial}/statements', [FinancialController::class, 'storeStatement'])->name('financial.statement.store');
 });
 
-Route::resource('financials', FinancialController::class);
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

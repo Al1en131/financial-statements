@@ -3,83 +3,75 @@
 namespace App\Http\Controllers;
 
 use App\Models\Financial;
+use App\Models\FinancialStatement;
 use Illuminate\Http\Request;
-
-namespace App\Http\Controllers;
-
-use App\Models\Financial;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FinancialController extends Controller
 {
+    // Display all financial categories for the authenticated user
     public function index()
     {
-        $financials = Financial::all();
-        return view('financials.index', compact('financials'));
+        $userId = Auth::id();
+        $financials = Financial::where('user_id', $userId)->get();
+        return view('financial.index', compact('financials'));
     }
 
-    public function create()
-    {
-        return view('financials.create');
-    }
-
-    public function store(Request $request)
+    // Store a new financial category for the authenticated user
+    public function storeFinancial(Request $request)
     {
         $request->validate([
-            'keterangan' => 'required|string|max:255',
-            'debit' => 'nullable|numeric',
-            'kredit' => 'nullable|numeric',
+            'financial_name' => 'required|string|max:255',
         ]);
-
-        // Calculate the balance based on debit and credit
-        $debit = $request->debit ?? 0;
-        $kredit = $request->kredit ?? 0;
-        $sisa_uang = $debit - $kredit;
 
         Financial::create([
-            'keterangan' => $request->keterangan,
-            'debit' => $debit,
-            'kredit' => $kredit,
-            'sisa_uang' => $sisa_uang,
+            'user_id' => Auth::id(),
+            'financial_name' => $request->financial_name,
         ]);
 
-        return redirect()->route('financials.index')->with('success', 'Financial record added.');
+        return redirect()->route('financial.index')->with('success', 'Financial category created successfully.');
     }
 
-    public function edit($id)
+    // Display financial statements for a specific financial category
+    public function showStatements($financialId)
     {
-        $financial = Financial::findOrFail($id);
-        return view('financials.edit', compact('financial'));
+        $financial = Financial::where('id', $financialId)
+            ->where('user_id', Auth::id())
+            ->with('statements')
+            ->firstOrFail();
+
+        return view('financial.statements', compact('financial'));
     }
 
-    public function update(Request $request, $id)
+    // Store a new statement under a specific financial category
+    public function storeStatement(Request $request, $financialId)
     {
         $request->validate([
-            'keterangan' => 'required|string|max:255',
-            'debit' => 'nullable|numeric',
-            'kredit' => 'nullable|numeric',
+            'debit' => 'required|numeric|min:0',
+            'credit' => 'required|numeric|min:0',
+            'information' => 'required|string|max:255',
         ]);
 
-        $financial = Financial::findOrFail($id);
-        $debit = $request->debit ?? 0;
-        $kredit = $request->kredit ?? 0;
-        $sisa_uang = $debit - $kredit;
+        // Retrieve the last balance or set it to 0 if no previous statements exist
+        $lastStatement = FinancialStatement::where('financial_id', $financialId)
+            ->orderBy('created_at', 'desc')
+            ->first();
 
-        $financial->update([
-            'keterangan' => $request->keterangan,
-            'debit' => $debit,
-            'kredit' => $kredit,
-            'sisa_uang' => $sisa_uang,
+        // Set initial balance to 0 if no previous statement exists
+        $lastBalance = $lastStatement ? $lastStatement->balance : 0;
+
+        // Calculate the new balance based on debit and credit
+        $balance = $lastBalance + $request->debit - $request->credit;
+
+        // Create a new financial statement entry
+        FinancialStatement::create([
+            'financial_id' => $financialId,
+            'debit' => $request->debit,
+            'credit' => $request->credit,
+            'balance' => $balance,
+            'information' => $request->information,
         ]);
 
-        return redirect()->route('financials.index')->with('success', 'Financial record updated.');
-    }
-
-    public function destroy($id)
-    {
-        $financial = Financial::findOrFail($id);
-        $financial->delete();
-
-        return redirect()->route('financials.index')->with('success', 'Financial record deleted.');
+        return redirect()->route('financial.showStatements', $financialId)->with('success', 'Financial statement added successfully.');
     }
 }

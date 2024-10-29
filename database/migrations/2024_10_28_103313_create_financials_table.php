@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('financials', function (Blueprint $table) {
             $table->id();
-            $table->string('keterangan');
-            $table->decimal('debit', 15, 2)->default(0);
-            $table->decimal('kredit', 15, 2)->default(0);
-            $table->decimal('sisa_uang', 15, 2)->default(0);
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('financial_name');
             $table->timestamps();
         });
+        
     }
 
     /**
