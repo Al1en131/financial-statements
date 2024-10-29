@@ -39,8 +39,11 @@ class FinancialController extends Controller
             ->where('user_id', Auth::id())
             ->with('statements')
             ->firstOrFail();
+        // In your FinancialController
+        $totalDebit = $financial->statements->sum('debit');
+        $totalCredit = $financial->statements->sum('credit');
 
-        return view('financial.statements', compact('financial'));
+        return view('financial.statements', compact('financial', 'totalDebit', 'totalCredit'));
     }
 
     // Store a new statement under a specific financial category
