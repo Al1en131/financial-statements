@@ -13,7 +13,12 @@ class FinancialController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $financials = Financial::where('user_id', $userId)->get();
+
+        // Load financial records along with their financial statements
+        $financials = Financial::where('user_id', $userId)
+            ->with('statements')
+            ->get();
+
         return view('financial.index', compact('financials'));
     }
 
@@ -46,6 +51,24 @@ class FinancialController extends Controller
         return view('financial.statements', compact('financial', 'totalDebit', 'totalCredit'));
     }
 
+    
+    // Add this to the controller's update method to return a JSON response:
+    public function update(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'financial_name' => 'required|string|max:255',
+        ]);
+
+        // Mengupdate data financial
+        $financial = Financial::findOrFail($id);
+        $financial->update($request->all());
+
+        return response()->json(['message' => 'Financial category updated successfully']);
+    }
+    
+
+
     // Store a new statement under a specific financial category
     public function storeStatement(Request $request, $financialId)
     {
@@ -76,5 +99,13 @@ class FinancialController extends Controller
         ]);
 
         return redirect()->route('financial.showStatements', $financialId)->with('success', 'Financial statement added successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $financial = Financial::findOrFail($id);
+        $financial->delete();
+
+        return redirect()->route('financial.index')->with('success', 'Financial category deleted successfully.');
     }
 }
