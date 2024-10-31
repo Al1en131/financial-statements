@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CashFundController;
+use App\Http\Controllers\CashFundInformationController;
 use App\Http\Controllers\FinancialController;
 use App\Http\Controllers\MemberCashController;
 use App\Http\Controllers\ProfileController;
@@ -23,12 +24,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/financial', [FinancialController::class, 'storeFinancial'])->name('financial.store');
     Route::get('/financial/{financial}/statements', [FinancialController::class, 'showStatements'])->name('financial.showStatements');
     Route::post('/financial/{financial}/statements', [FinancialController::class, 'storeStatement'])->name('financial.statement.store');
-    Route::get('/cashfunds', [CashFundController::class, 'index'])->name('cashfunds.index');
-    Route::get('/cashfunds/create', [CashFundController::class, 'create'])->name('cashfunds.create');
-    Route::post('/cashfunds', [CashFundController::class, 'store'])->name('cashfunds.store');
-    Route::get('/cashfunds/{id}', [CashFundController::class, 'show'])->name('cashfunds.show');
-    Route::post('/member-cashes/{cashFundId}', [MemberCashController::class, 'store'])->name('membercash.store');
-    Route::patch('/member-cashes/{id}/update-payment-status', [MemberCashController::class, 'updatePaymentStatus'])->name('membercash.updatePaymentStatus');
+    Route::resource('cashfunds', CashFundController::class)->only(['index', 'store']);
+    Route::resource('cashfunds.informations', CashFundInformationController::class)->only(['index', 'store']);
+    Route::resource('cashfund_informations.member_cash', MemberCashController::class)->only(['index', 'store', 'update']);
+    Route::resource('cashfund_informations.member_cash', MemberCashController::class)->only(['index', 'store', 'update']);
+    Route::post('/cashfunds/{cashFund}/member_cash', [MemberCashController::class, 'store'])->name('cashfund_informations.member_cash.store');
+
 });
 
 require __DIR__ . '/auth.php';

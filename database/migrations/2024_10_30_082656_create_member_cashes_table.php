@@ -13,23 +13,12 @@ return new class extends Migration
     {
         Schema::create('member_cashes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cash_fund_id')->constrained('cash_funds')->onDelete('cascade');
-            $table->string('name');
-            $table->enum('month', [
-                'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July',
-                'August',
-                'September',
-                'October',
-                'November',
-                'December'
-            ]);
-            $table->boolean('payment_status')->default(false);
+            $table->foreignId('cash_fund_information_id')->constrained()->onDelete('cascade');
+            $table->string('member_name'); // Optional: Add member name field
+            $table->boolean('week_1_status')->default(false);
+            $table->boolean('week_2_status')->default(false);
+            $table->boolean('week_3_status')->default(false);
+            $table->boolean('week_4_status')->default(false);
             $table->timestamps();
         });
     }

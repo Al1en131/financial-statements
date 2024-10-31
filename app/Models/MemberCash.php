@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class MemberCash extends Model
 {
     use HasFactory;
-    
+
     protected $guarded;
 
-    public function cashFund()
+    public function cashFundInformation()
     {
-        return $this->belongsTo(CashFund::class);
+        return $this->belongsTo(CashFundInformation::class);
     }
 }

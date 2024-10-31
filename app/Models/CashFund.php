@@ -9,15 +9,10 @@ class CashFund extends Model
 {
     use HasFactory;
 
-    protected $guarded;
+    protected $fillable = ['user_id', 'cash_fund_name'];
 
-    public function user()
+    public function cashFundInformations()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function memberCash()
-    {
-        return $this->hasMany(MemberCash::class, 'cash_fund_id'); // Sesuaikan dengan nama kolom foreign key
+        return $this->hasMany(CashFundInformation::class);
     }
 }

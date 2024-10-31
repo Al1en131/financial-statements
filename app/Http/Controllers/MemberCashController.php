@@ -3,52 +3,65 @@
 namespace App\Http\Controllers;
 
 use App\Models\MemberCash;
+use App\Models\CashFundInformation;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class MemberCashController extends Controller
 {
-    public function store(Request $request, $cashFundId)
+    public function index($cashFundInformationId)
     {
-        $request->validate([
-            'month' => 'required|in:January,February,March,April,May,June,July,August,September,October,November,December',
-            'payment_status_week1' => 'boolean',
-            'payment_status_week2' => 'boolean',
-            'payment_status_week3' => 'boolean',
-            'payment_status_week4' => 'boolean',
-        ]);
+        $cashFundInformation = CashFundInformation::findOrFail($cashFundInformationId);
+        $members = MemberCash::where('cash_fund_information_id', $cashFundInformationId)->get();
 
-        MemberCash::create([
-            'cash_fund_id' => $cashFundId,
-            'month' => $request->month,
-            'payment_status_week1' => $request->has('payment_status_week1'),
-            'payment_status_week2' => $request->has('payment_status_week2'),
-            'payment_status_week3' => $request->has('payment_status_week3'),
-            'payment_status_week4' => $request->has('payment_status_week4'),
-        ]);
-
-        return back()->with('success', 'Member cash record created successfully!');
+        return view('member_cash.index', compact('cashFundInformation', 'members'));
     }
 
-    public function updatePaymentStatus(Request $request, $id)
+    public function store(Request $request, $cashFundInformationId)
     {
-        $memberCash = MemberCash::findOrFail($id);
+        // Log the incoming request data
+        Log::info('Request data:', $request->all());
 
         // Validate the request
         $request->validate([
-            'payment_status_week1' => 'boolean',
-            'payment_status_week2' => 'boolean',
-            'payment_status_week3' => 'boolean',
-            'payment_status_week4' => 'boolean',
+            'member_name' => 'required|string|max:255',
         ]);
 
-        // Update the payment status for each week
-        $memberCash->update([
-            'payment_status_week1' => $request->has('payment_status_week1'),
-            'payment_status_week2' => $request->has('payment_status_week2'),
-            'payment_status_week3' => $request->has('payment_status_week3'),
-            'payment_status_week4' => $request->has('payment_status_week4'),
+        // Create a new MemberCash entry
+        MemberCash::create([
+            'cash_fund_information_id' => $cashFundInformationId,
+            'member_name' => $request->member_name,
         ]);
 
-        return back()->with('success', 'Payment status updated successfully!');
+        return redirect()->route('cashfund_informations.member_cash.index', $cashFundInformationId)
+            ->with('success', 'Member added successfully!');
     }
+
+    public function update(Request $request, $cashFundInformationId, $member_cash)
+    {
+        $memberCash = MemberCash::findOrFail($member_cash);
+
+        // Log data permintaan yang masuk
+        Log::info('Updating MemberCash:', $request->all());
+
+        // Validasi permintaan
+        $request->validate([
+            'week_1_status' => 'boolean',
+            'week_2_status' => 'boolean',
+            'week_3_status' => 'boolean',
+            'week_4_status' => 'boolean',
+        ]);
+
+        // Perbarui status pembayaran
+        $memberCash->update([
+            'week_1_status' => $request->has('week_1_status'),
+            'week_2_status' => $request->has('week_2_status'),
+            'week_3_status' => $request->has('week_3_status'),
+            'week_4_status' => $request->has('week_4_status'),
+        ]);
+
+        return redirect()->route('cashfund_informations.member_cash.index', $cashFundInformationId)
+                         ->with('success', 'Payment status updated successfully!');
+    }
+    
 }
