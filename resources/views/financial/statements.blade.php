@@ -21,7 +21,6 @@
                     @endphp
                     @foreach ($financial->statements as $statement)
                         @php
-                            // Tambahkan debit dan kurangi credit untuk menghitung balance
                             $runningBalance += $statement->debit - $statement->credit;
                         @endphp
                         <tr class="bg-white">
@@ -31,7 +30,7 @@
                             <td class="px-6 py-4">Rp. {{ number_format($statement->debit, 0, ',', '.') }}</td>
                             <td class="px-6 py-4">Rp. {{ number_format($statement->credit, 0, ',', '.') }}</td>
                             <td class="px-6 py-4">Rp. {{ number_format($runningBalance, 0, ',', '.') }}</td>
-                            <td class="px-6 py-4 flex space-x-2">
+                            <td class="px-6 py-4 flex space-x-2 items-center">
                                 <button
                                     onclick="openEditModal({{ $statement->id }}, '{{ $statement->information }}', {{ $statement->debit }}, {{ $statement->credit }})"
                                     class="text-yellow-500">
@@ -42,10 +41,11 @@
                                     </svg>
                                 </button>
                                 <form action="{{ route('financial.statement.destroy', $statement->id) }}" method="POST"
-                                    onsubmit="return confirm('Are you sure you want to delete this statement?');">
+                                    id="delete-form-{{ $statement->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-500">
+                                    <button type="button" class="text-red-500"
+                                        onclick="confirmDelete({{ $statement->id }})">
                                         <svg stroke="#022a3b" fill="#022a3b" stroke-width="0" class="h-5 w-5"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                             <path
@@ -63,14 +63,12 @@
                         <td class="px-6 py-3">Rp. {{ number_format($totalDebit, 0, ',', '.') }}</td>
                         <td class="px-6 py-3">Rp. {{ number_format($totalCredit, 0, ',', '.') }}</td>
                         <td class="px-6 py-3">Rp. {{ number_format($totalDebit - $totalCredit, 0, ',', '.') }}</td>
-                        <!-- Total balance -->
                     </tr>
                 </tfoot>
             </table>
         </div>
     </div>
 
-    <!-- Modal for adding new financial statement -->
     <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white rounded-lg shadow-lg p-6 w-96">
             <h2 class="text-xl mb-4">Add New Financial Statement</h2>
@@ -87,7 +85,6 @@
         </div>
     </div>
 
-    <!-- Modal for editing financial statement -->
     <div id="edit-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white rounded-lg shadow-lg p-6 w-96">
             <h2 class="text-xl mb-4">Edit Financial Statement</h2>
@@ -120,7 +117,7 @@
             document.getElementById('edit-debit').value = debit;
             document.getElementById('edit-credit').value = credit;
             document.getElementById('edit-form').action =
-                `/financial/statements/${id}`; // sesuaikan dengan rute yang Anda buat
+                `/financial/statements/${id}`;
             document.getElementById('edit-modal').classList.remove('hidden');
         }
 
@@ -128,6 +125,25 @@
             document.getElementById('edit-modal').classList.add('hidden');
         }
     </script>
+    <script>
+        function confirmDelete(statementId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(`delete-form-${statementId}`).submit();
+                }
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-nr5CNC/0NYTIG4M45LkTYGP9BO+3wM1C9IZS47PTN4OqHMi7tB33Fkgciv68j2+OfWTT0R2B3dHDN2aZssLAZg=="

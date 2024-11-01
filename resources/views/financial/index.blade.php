@@ -5,8 +5,6 @@
             <div>
                 <button id="openModal" class="bg-[#022a3b] text-white px-4 py-2 rounded-md">Add New Financial
                     Category</button>
-
-                <!-- Modal -->
                 <div id="modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
                     <div class="modal-overlay fixed inset-0 bg-black opacity-50"></div>
                     <div class="modal-content bg-white rounded-lg p-6 z-10">
@@ -40,11 +38,11 @@
                         </span>
                     </div>
                     <div class="h-50 ml-4 flex w-auto flex-col justify-center">
-                        <a
-                            href="{{ route('financial.showStatements', $financial->id) }}">{{ $financial->financial_name }}</a>
-                        <h4 class="text-lg font-bold text-black">Rp
+                        <a href="{{ route('financial.showStatements', $financial->id) }}"
+                            class="text-lg font-bold text-black"> {{ Str::limit($financial->financial_name, 20) }}</a>
+                        <h4 class="text-black">Rp
                             @if (optional($financial->statements)->isNotEmpty())
-                                {{ number_format($financial->statements->last()->balance, 0, ',', '.') }}
+                                {{ number_format($financial->balance, 0, ',', '.') }}
                             @else
                                 -
                             @endif
@@ -59,17 +57,15 @@
                             </svg>
                         </button>
 
-                        <!-- Dropdown Menu -->
                         <div id="dropdown-{{ $financial->id }}"
                             class="hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg z-20">
-                            <a href="#"
-                                onclick="openEditModal({{ $financial->id }}, '{{ $financial->financial_name }}')"
+                            <a onclick="openEditModal({{ $financial->id }}, '{{ $financial->financial_name }}')"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
-                            <form action="{{ route('financial.destroy', $financial->id) }}" method="POST"
-                                onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <form id="delete-form-{{ $financial->id }}"
+                                action="{{ route('financial.destroy', $financial->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit"
+                                <button type="button" onclick="confirmDelete({{ $financial->id }})"
                                     class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Delete</button>
                             </form>
                         </div>
@@ -84,10 +80,10 @@
                 <div class="fixed inset-0 bg-black opacity-30"></div>
                 <div class="bg-white z-50 rounded-lg p-6 max-w-sm mx-auto">
                     <h2 class="text-lg font-bold mb-4" id="modal-title">Edit Financial Category</h2>
-                    <form id="editForm" action="#" method="POST">
+                    <form id="editForm" method="POST">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="financial_id" id="financial_id" value="">
+                        <input type="hidden" name="financial_id" id="financial_id">
                         <div class="mb-4">
                             <label for="financial_name" class="block text-sm font-medium text-gray-700">Financial
                                 Name</label>
@@ -95,9 +91,8 @@
                                 class="mt-1 block w-full border-gray-300 rounded-md" required>
                         </div>
                         <div class="flex justify-end">
-                            <button type="button"
-                                class="mr-2 bg-gray-300 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded"
-                                onclick="closeEditModal()">Cancel</button>
+                            <button type="button" onclick="closeEditModal()"
+                                class="mr-2 bg-gray-300 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded">Cancel</button>
                             <button type="submit"
                                 class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Update</button>
                         </div>
@@ -120,7 +115,6 @@
             modal.classList.add('hidden');
         });
 
-        // Menutup modal jika overlay diklik
         modal.addEventListener('click', (event) => {
             if (event.target === modal) {
                 modal.classList.add('hidden');
@@ -128,8 +122,10 @@
         });
 
         function openEditModal(id, name) {
+            const editForm = document.getElementById('editForm');
             document.getElementById('financial_id').value = id;
             document.getElementById('financial_name').value = name;
+            editForm.setAttribute('action', `/financial/${id}`);
             document.getElementById('editModal').classList.remove('hidden');
         }
 
@@ -137,32 +133,56 @@
             document.getElementById('editModal').classList.add('hidden');
         }
 
+        // Form submission with Fetch API
         document.getElementById('editForm').addEventListener('submit', function(e) {
             e.preventDefault();
+
             const formData = new FormData(this);
             const financialId = document.getElementById('financial_id').value;
+            const url = `/financial/${financialId}`;
 
-            fetch(`/financial/${financialId}`, {
-                    method: 'PUT',
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content'),
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
                     body: formData,
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    closeEditModal(); // Pastikan ini dipanggil
-                    location.reload(); // Refresh halaman untuk melihat data yang diperbarui
+                    closeEditModal();
+                    location.reload(); // Reload page to see updated data
                 })
                 .catch(error => console.error('Error:', error));
         });
-
 
         function toggleDropdown(id) {
             const dropdown = document.getElementById(`dropdown-${id}`);
             dropdown.classList.toggle('hidden');
         }
     </script>
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(`delete-form-${id}`).submit();
+                }
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
 </x-app-layout>

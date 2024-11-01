@@ -28,14 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/financial/{id}', [FinancialController::class, 'destroy'])->name('financial.destroy');
     Route::get('/financial/{financial}/statements', [FinancialController::class, 'showStatements'])->name('financial.showStatements');
     Route::post('/financial/{financial}/statements', [FinancialController::class, 'storeStatement'])->name('financial.statement.store');
-    
+
     // Financial Statement routes
     Route::put('/financial/statements/{statement}', [FinancialStatementController::class, 'update'])->name('financial.statement.update');
     Route::delete('/financial/statements/{statement}', [FinancialStatementController::class, 'destroy'])->name('financial.statement.destroy');
 
     // Cash funds routes
-    Route::resource('cashfunds', CashFundController::class)->only(['index', 'store']);
-    Route::resource('cashfunds.informations', CashFundInformationController::class)->only(['index', 'store']);
+    Route::resource('cashfunds', CashFundController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('cashfunds.informations', CashFundInformationController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::resource('cashfund_informations.member_cash', MemberCashController::class)->only(['index', 'store', 'update']);
     Route::post('/cashfunds/{cashFund}/member_cash', [MemberCashController::class, 'store'])->name('cashfund_informations.member_cash.store');
 });

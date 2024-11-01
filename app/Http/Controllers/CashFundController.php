@@ -39,4 +39,25 @@ class CashFundController extends Controller
 
         return redirect()->route('login')->withErrors('You need to log in to create a cash fund.');
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'cash_fund_name' => 'required|string|max:255',
+        ]);
+
+        $cashFund = CashFund::findOrFail($id);
+        $cashFund->cash_fund_name = $request->cash_fund_name;
+        $cashFund->save();
+
+        return redirect()->route('cashfunds.index')->with('success', 'Cash Fund updated successfully');
+    }
+
+    public function destroy($id)
+    {
+        $cashFund = CashFund::findOrFail($id);
+        $cashFund->delete();
+
+        return redirect()->route('cashfunds.index')->with('success', 'Cash Fund deleted successfully');
+    }
 }

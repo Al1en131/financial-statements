@@ -13,14 +13,25 @@ class FinancialController extends Controller
     public function index()
     {
         $userId = Auth::id();
-
+    
         // Load financial records along with their financial statements
         $financials = Financial::where('user_id', $userId)
             ->with('statements')
             ->get();
-
+    
+        // Calculate the balance for each financial record
+        foreach ($financials as $financial) {
+            $totalDebit = $financial->statements->sum('debit');  // Sum of all debit entries
+            $totalCredit = $financial->statements->sum('credit'); // Sum of all credit entries
+    
+            // Calculate balance as total debit minus total credit
+            $financial->balance = $totalDebit - $totalCredit;
+        }
+    
+        // Pass data to the view
         return view('financial.index', compact('financials'));
     }
+    
 
     // Store a new financial category for the authenticated user
     public function storeFinancial(Request $request)
@@ -51,22 +62,22 @@ class FinancialController extends Controller
         return view('financial.statements', compact('financial', 'totalDebit', 'totalCredit'));
     }
 
-    
+
     // Add this to the controller's update method to return a JSON response:
     public function update(Request $request, $id)
     {
-        // Validasi input
         $request->validate([
             'financial_name' => 'required|string|max:255',
         ]);
 
-        // Mengupdate data financial
+        // Cari financial berdasarkan ID dan update nama financial-nya
         $financial = Financial::findOrFail($id);
-        $financial->update($request->all());
+        $financial->financial_name = $request->input('financial_name');
+        $financial->save();
 
-        return response()->json(['message' => 'Financial category updated successfully']);
+        return response()->json(['message' => 'Financial category updated successfully.']);
     }
-    
+
 
 
     // Store a new statement under a specific financial category
