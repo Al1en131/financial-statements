@@ -9,6 +9,21 @@
         <div class="mb-4">
             <h2 class="text-2xl">Total Collected: Rp. {{ number_format($totalCollected, 0, ',', '.') }}</h2>
         </div>
+        @php
+            $totalPaid = $members
+                ->filter(function ($member) {
+                    return $member->week_1_status &&
+                        $member->week_2_status &&
+                        $member->week_3_status &&
+                        $member->week_4_status;
+                })
+                ->count();
+
+            $totalUnpaid = $members->count() - $totalPaid;
+        @endphp
+
+        <h2 class="text-2xl">Total Members Lunas: {{ $totalPaid }}</h2>
+        <h2 class="text-2xl">Total Members Belum Lunas: {{ $totalUnpaid }}</h2>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -70,7 +85,8 @@
                                 <td class="px-6 py-4 justify-center text-center">
                                     <div class="form-check form-switch">
                                         <input type="checkbox" class="form-check-input"
-                                            id="checkbox_week_1_{{ $member->id }}" name="week_1_status" value="1"
+                                            id="checkbox_week_1_{{ $member->id }}" name="week_1_status"
+                                            value="1"
                                             {{ old('week_1_status', $member->week_1_status) ? 'checked' : '' }}
                                             onchange="document.getElementById('form-status-{{ $member->id }}').submit();">
                                         <label class="form-check-label"
