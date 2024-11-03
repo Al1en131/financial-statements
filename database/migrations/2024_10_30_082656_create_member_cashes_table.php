@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('member_cashes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cash_fund_information_id')->constrained()->onDelete('cascade');
-            $table->string('member_name'); // Optional: Add member name field
+            $table->string('member_name'); 
             $table->boolean('week_1_status')->default(false);
             $table->boolean('week_2_status')->default(false);
             $table->boolean('week_3_status')->default(false);

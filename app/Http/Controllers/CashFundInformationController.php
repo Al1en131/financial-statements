@@ -29,6 +29,8 @@ class CashFundInformationController extends Controller
         CashFundInformation::create([
             'cash_fund_id' => $cashFundId,
             'date' => $request->date,
+            'cash_detail' => $request->cash_detail,
+
         ]);
 
         return redirect()->route('cashfunds.informations.index', $cashFundId);
@@ -36,17 +38,27 @@ class CashFundInformationController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Validate the incoming request data
         $request->validate([
             'date' => 'required|date',
+            'cash_detail' => 'required|numeric|min:0', // Ensure cash_detail is validated
         ]);
 
+        // Find the CashFundInformation by ID or fail
         $cashFundInformation = CashFundInformation::findOrFail($id);
+
+        // Update the fields
         $cashFundInformation->date = $request->date;
+        $cashFundInformation->cash_detail = $request->cash_detail; // Update cash_detail
+
+        // Save the changes
         $cashFundInformation->save();
 
+        // Redirect back to the index route with a success message
         return redirect()->route('cashfunds.informations.index', $cashFundInformation->cash_fund_id)
             ->with('success', 'Cash Fund information updated successfully');
     }
+
 
     public function destroy($id)
     {

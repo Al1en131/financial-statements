@@ -13,6 +13,8 @@
                             @csrf
                             <input type="date" name="date" required
                                 class="border border-gray-300 rounded-md p-2 mb-4 w-full">
+                            <input type="number" name="cash_detail" required step="0.01" min="0"
+                                placeholder="Cash Amount" class="border border-gray-300 rounded-md p-2 mb-4 w-full">
                             <div class="flex justify-end">
                                 <button type="button" id="closeModal"
                                     class="mr-2 bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400">Cancel</button>
@@ -41,14 +43,6 @@
                         <a href="{{ route('cashfund_informations.member_cash.index', $info->id) }}">
                             {{ \Carbon\Carbon::parse($info->date)->translatedFormat('F Y') }}
                         </a>
-
-                        {{-- <h4 class="text-black">Rp
-                            @if (optional($financial->statements)->isNotEmpty())
-                                {{ number_format($financial->balance, 0, ',', '.') }}
-                            @else
-                                -
-                            @endif
-                        </h4> --}}
                     </div>
                     <div class="absolute px-4 right-0">
                         <button onclick="toggleDropdown({{ $info->id }})" class="focus:outline-none">
@@ -61,7 +55,7 @@
 
                         <div id="dropdown-{{ $info->id }}"
                             class="hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg z-20">
-                            <a onclick="openEditModal({{ $info->id }}, '{{ $info->date }}')"
+                            <a onclick="openEditModal({{ $info->id }}, '{{ $info->date }}',{{ $info->cash_detail }})"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
                             <form id="delete-form-{{ $info->id }}"
                                 action="{{ route('cashfunds.informations.destroy', [$cashFund->id, $info->id]) }}"
@@ -85,6 +79,8 @@
                     @method('PUT')
                     <input type="date" name="date" id="editCashFundInformationDate" required
                         class="border border-gray-300 rounded-md p-2 mb-4 w-full">
+                    <input type="number" name="cash_detail" id="editCashDetail" required step="0.01" min="0"
+                        placeholder="Cash Amount" class="border border-gray-300 rounded-md p-2 mb-4 w-full">
                     <div class="flex justify-end">
                         <button type="button" id="closeEditModal"
                             class="mr-2 bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400">Cancel</button>
@@ -121,13 +117,15 @@
         const closeEditModal = document.getElementById('closeEditModal');
 
         // Fungsi untuk membuka modal edit
-        function openEditModal(id, date) {
-            // Set nilai input tanggal dengan data yang diterima dari parameter
-            editCashFundDate.value = date;
+        function openEditModal(id, date, cashDetail) {
+            const editModal = document.getElementById('editModal');
+            const editForm = document.getElementById('editForm');
 
-            // Set action dari form dengan route update yang sesuai dengan id cash fund information
-            editForm.action = `/cashfunds/${id}/informations/${id}`; // Sesuaikan dengan struktur route Laravel
-            editModal.classList.remove('hidden'); // Tampilkan modal
+            document.getElementById('editCashFundInformationDate').value = date;
+            document.getElementById('editCashDetail').value = cashDetail;
+
+            editForm.action = `/cashfunds/${id}/informations/${id}`;
+            editModal.classList.remove('hidden');
         }
 
         // Fungsi untuk menutup modal edit

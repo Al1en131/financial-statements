@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('cash_fund_informations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cash_fund_id')->constrained()->onDelete('cascade');
-            $table->date('date'); // Store month and year
+            $table->decimal('cash_detail', 15, 2)->default(0);
+            $table->date('date'); 
             $table->timestamps();
         });
     }

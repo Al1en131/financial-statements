@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('cashfunds.informations', CashFundInformationController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::resource('cashfund_informations.member_cash', MemberCashController::class)->only(['index', 'store', 'update']);
     Route::post('/cashfunds/{cashFund}/member_cash', [MemberCashController::class, 'store'])->name('cashfund_informations.member_cash.store');
+    Route::put('/cashfund_informations/{cashFundInformation}/member_cash/{member}', [MemberCashController::class, 'updateName'])->name('cashfund_informations.member_cash.update');
+    Route::delete('/cashfund_informations/{cashFundInformation}/member_cash/{member}', [MemberCashController::class, 'destroy'])->name('cashfund_informations.member_cash.destroy');
 });
 
 require __DIR__ . '/auth.php';

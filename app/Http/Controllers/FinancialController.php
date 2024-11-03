@@ -13,25 +13,25 @@ class FinancialController extends Controller
     public function index()
     {
         $userId = Auth::id();
-    
+
         // Load financial records along with their financial statements
         $financials = Financial::where('user_id', $userId)
             ->with('statements')
             ->get();
-    
+
         // Calculate the balance for each financial record
         foreach ($financials as $financial) {
             $totalDebit = $financial->statements->sum('debit');  // Sum of all debit entries
             $totalCredit = $financial->statements->sum('credit'); // Sum of all credit entries
-    
+
             // Calculate balance as total debit minus total credit
             $financial->balance = $totalDebit - $totalCredit;
         }
-    
+
         // Pass data to the view
         return view('financial.index', compact('financials'));
     }
-    
+
 
     // Store a new financial category for the authenticated user
     public function storeFinancial(Request $request)
@@ -84,6 +84,8 @@ class FinancialController extends Controller
     public function storeStatement(Request $request, $financialId)
     {
         $request->validate([
+            'image' =>  'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'date' => 'required|date',
             'debit' => 'required|numeric|min:0',
             'credit' => 'required|numeric|min:0',
             'information' => 'required|string|max:255',
@@ -99,9 +101,13 @@ class FinancialController extends Controller
 
         // Calculate the new balance based on debit and credit
         $balance = $lastBalance + $request->debit - $request->credit;
+        $image = $request->file('image');
+        $image->storeAs('public/image', $image->hashName());
 
         // Create a new financial statement entry
         FinancialStatement::create([
+            'image' => $image->hashName(),
+            'date' => $request->date,
             'financial_id' => $financialId,
             'debit' => $request->debit,
             'credit' => $request->credit,

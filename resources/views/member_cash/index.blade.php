@@ -6,6 +6,9 @@
             </h1>
             <button onclick="openModal()" class="bg-blue-500 text-white px-4 py-2 rounded">Add Member</button>
         </div>
+        <div class="mb-4">
+            <h2 class="text-2xl">Total Collected: Rp. {{ number_format($totalCollected, 0, ',', '.') }}</h2>
+        </div>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -47,7 +50,7 @@
                         <th scope="col" class="px-6 py-3 justify-center text-center">Minggu 3</th>
                         <th scope="col" class="px-6 py-3 justify-center text-center">Minggu 4</th>
                         <th scope="col" class="px-6 py-3 justify-center text-center">Status</th>
-                        <th scope="col" class="px-6 py-3 rounded-e-lg">Action</th>
+                        <th scope="col" class="px-6 py-3 rounded-e-lg justify-center text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,11 +59,14 @@
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $member->member_name }}
                             </th>
+
+                            <!-- Form untuk status minggu -->
                             <form
                                 action="{{ route('cashfund_informations.member_cash.update', [$cashFundInformation->id, $member->id]) }}"
                                 method="POST" id="form-status-{{ $member->id }}">
                                 @csrf
                                 @method('PATCH')
+
                                 <td class="px-6 py-4 justify-center text-center">
                                     <div class="form-check form-switch">
                                         <input type="checkbox" class="form-check-input"
@@ -104,17 +110,23 @@
                                             for="checkbox_week_4_{{ $member->id }}"></label>
                                     </div>
                                 </td>
-                                {{-- <td>
-                                    <a href="{{ route('cashfund_informations.member_cash.destroy', [$cashFundInformation->id, $member->id]) }}" 
-                                       class="btn btn-danger btn-sm" 
-                                       onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this member?')) { document.getElementById('delete-form-{{ $member->id }}').submit(); }">Delete</a>
-                                    <form id="delete-form-{{ $member->id }}" action="{{ route('cashfund_informations.member_cash.destroy', [$cashFundInformation->id, $member->id]) }}" method="POST" style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                </td> --}}
                             </form>
 
+                            <td class="px-6 py-4 justify-center text-center">
+                                @if ($member->week_1_status && $member->week_2_status && $member->week_3_status && $member->week_4_status)
+                                    <span
+                                        class="text-white bg-green-600 rounded-lg px-6 py-2 font-semibold">Lunas</span>
+                                @else
+                                    <span class="bg-red-700 px-6 py-2 rounded-lg text-white font-semibold">Belum
+                                        Lunas</span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 justify-center text-center">
+                                <button type="button" class="bg-red-500 text-white px-2 py-1 rounded"
+                                    onclick="deleteMember('{{ $cashFundInformation->id }}', '{{ $member->id }}')">
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -130,4 +142,33 @@
             document.getElementById('modal').classList.add('hidden');
         }
     </script>
+    <script>
+        function deleteMember(cashFundId, memberId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengkonfirmasi, kirim request DELETE
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = `{{ url('cashfund_informations') }}/${cashFundId}/member_cash/${memberId}`;
+                    form.innerHTML = `
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                    `;
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 </x-app-layout>
