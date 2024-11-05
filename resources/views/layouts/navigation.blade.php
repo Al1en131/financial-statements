@@ -1,27 +1,39 @@
-<nav x-data="{ open: false }" class="bg-white border-b fixed top-0 z-50 w-full border-gray-200">
+<nav x-data="{ open: false }" class=" fixed top-0 z-20 w-full">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto px-4 sm:px-6 lg:pl-12 lg:pr-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <svg width="115" height="22" viewBox="0 0 115 22" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8.975 11.05H6.775V21H1.85V11.05H0.325V6.975H1.85V6.85C1.85 5.05 2.375 3.675 3.425 2.725C4.49167 1.75833 6.01667 1.275 8 1.275C8.4 1.275 8.70833 1.28333 8.925 1.3V5.475C8.79167 5.45833 8.60833 5.45 8.375 5.45C7.84167 5.45 7.45 5.575 7.2 5.825C6.95 6.05833 6.80833 6.44167 6.775 6.975H8.975V11.05ZM13.2012 5.675C12.3345 5.675 11.6345 5.44167 11.1012 4.975C10.5845 4.49167 10.3262 3.89167 10.3262 3.175C10.3262 2.44167 10.5845 1.83333 11.1012 1.35C11.6345 0.866666 12.3345 0.624999 13.2012 0.624999C14.0512 0.624999 14.7345 0.866666 15.2512 1.35C15.7845 1.83333 16.0512 2.44167 16.0512 3.175C16.0512 3.89167 15.7845 4.49167 15.2512 4.975C14.7345 5.44167 14.0512 5.675 13.2012 5.675ZM15.6262 6.975V21H10.7262V6.975H15.6262ZM27.5916 6.85C29.2083 6.85 30.4916 7.39167 31.4416 8.475C32.3916 9.54167 32.8666 10.9917 32.8666 12.825V21H27.9666V13.475C27.9666 12.675 27.7583 12.05 27.3416 11.6C26.9249 11.1333 26.3666 10.9 25.6666 10.9C24.9333 10.9 24.3583 11.1333 23.9416 11.6C23.5249 12.05 23.3166 12.675 23.3166 13.475V21H18.4166V6.975H23.3166V8.975C23.7499 8.34167 24.3333 7.83333 25.0666 7.45C25.7999 7.05 26.6416 6.85 27.5916 6.85Z"
+                                fill="#EC8305" />
+                            <path
+                                d="M50.0043 1.965V6.177H44.9283V21H39.6363V6.177H34.6143V1.965H50.0043ZM57.2542 8.526C57.8482 7.662 58.5682 6.978 59.4142 6.474C60.2602 5.97 61.1692 5.718 62.1412 5.718V11.361H60.6562C59.5042 11.361 58.6492 11.586 58.0912 12.036C57.5332 12.486 57.2542 13.269 57.2542 14.385V21H51.9622V5.853H57.2542V8.526ZM63.1744 13.413C63.1744 11.847 63.4534 10.479 64.0114 9.309C64.5874 8.139 65.3614 7.239 66.3334 6.609C67.3234 5.979 68.4214 5.664 69.6274 5.664C70.6714 5.664 71.5714 5.871 72.3274 6.285C73.0834 6.699 73.6684 7.257 74.0824 7.959V5.853H79.3744V21H74.0824V18.894C73.6684 19.596 73.0744 20.154 72.3004 20.568C71.5444 20.982 70.6534 21.189 69.6274 21.189C68.4214 21.189 67.3234 20.874 66.3334 20.244C65.3614 19.614 64.5874 18.714 64.0114 17.544C63.4534 16.356 63.1744 14.979 63.1744 13.413ZM74.0824 13.413C74.0824 12.441 73.8124 11.676 73.2724 11.118C72.7504 10.56 72.1024 10.281 71.3284 10.281C70.5364 10.281 69.8794 10.56 69.3574 11.118C68.8354 11.658 68.5744 12.423 68.5744 13.413C68.5744 14.385 68.8354 15.159 69.3574 15.735C69.8794 16.293 70.5364 16.572 71.3284 16.572C72.1024 16.572 72.7504 16.293 73.2724 15.735C73.8124 15.177 74.0824 14.403 74.0824 13.413ZM81.5259 13.413C81.5259 11.847 81.8499 10.479 82.4979 9.309C83.1459 8.139 84.0459 7.239 85.1979 6.609C86.3679 5.979 87.6999 5.664 89.1939 5.664C91.1199 5.664 92.7399 6.195 94.0539 7.257C95.3679 8.301 96.2139 9.768 96.5919 11.658H90.9759C90.6519 10.668 90.0219 10.173 89.0859 10.173C88.4199 10.173 87.8889 10.452 87.4929 11.01C87.1149 11.55 86.9259 12.351 86.9259 13.413C86.9259 14.475 87.1149 15.285 87.4929 15.843C87.8889 16.401 88.4199 16.68 89.0859 16.68C90.0399 16.68 90.6699 16.185 90.9759 15.195H96.5919C96.2139 17.067 95.3679 18.534 94.0539 19.596C92.7399 20.658 91.1199 21.189 89.1939 21.189C87.6999 21.189 86.3679 20.874 85.1979 20.244C84.0459 19.614 83.1459 18.714 82.4979 17.544C81.8499 16.374 81.5259 14.997 81.5259 13.413ZM108.267 21L104.082 14.79V21H98.7903V1.02H104.082V11.793L108.267 5.853H114.612L108.645 13.467L114.72 21H108.267Z"
+                                fill="white" />
+                        </svg>
+
                     </a>
                 </div>
 
             </div>
-
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
                                 </svg>
                             </div>
                         </button>
@@ -37,57 +49,13 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
                 </x-dropdown>
-            </div>
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
             </div>
         </div>
     </div>

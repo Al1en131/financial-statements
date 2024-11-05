@@ -9,13 +9,14 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=poppins:400,500,600&display=swap" rel="stylesheet" />
+
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body class="font-sans antialiased" style="background: linear-gradient(243deg, #20374D 0%, #1A2B3C 39.87%, #1A2B3C 70.96%);">
+        <div class="min-h-screen">
             @include('layouts.sidebar')
             @include('layouts.navigation')
 
@@ -29,7 +30,7 @@
             @endisset
 
             <!-- Page Content -->
-            <main class="sm:ml-64 pl-4 pr-4 sm:pr-6 lg:pr-10 py-[89px]">
+            <main class="sm:ml-64 pl-4 min-h-screen pr-4 sm:pr-6 lg:pr-10 py-[89px]">
                 {{ $slot }}
             </main>
         </div>

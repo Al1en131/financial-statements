@@ -58,8 +58,9 @@ class FinancialController extends Controller
         // In your FinancialController
         $totalDebit = $financial->statements->sum('debit');
         $totalCredit = $financial->statements->sum('credit');
+        $sisaSaldo = $totalDebit - $totalCredit;
 
-        return view('financial.statements', compact('financial', 'totalDebit', 'totalCredit'));
+        return view('financial.statements', compact('financial', 'totalDebit', 'totalCredit','sisaSaldo'));
     }
 
 

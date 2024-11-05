@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CashFund;
 use App\Models\MemberCash;
 use App\Models\CashFundInformation;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Auth;
 
 class MemberCashController extends Controller
 {
     public function index($cashFundInformationId)
     {
         // Fetch the specific cash fund information
+        $cashFund = CashFund::where('user_id', Auth::id())->get();
         $cashFundInformation = CashFundInformation::findOrFail($cashFundInformationId);
 
         // Fetch all members associated with this cash fund information
@@ -36,7 +40,7 @@ class MemberCashController extends Controller
             $totalCollected += $cashDetail * $weeksPaid;
         }
 
-        return view('member_cash.index', compact('cashFundInformation', 'members', 'totalCollected'));
+        return view('member_cash.index', compact('cashFundInformation', 'members', 'totalCollected', 'cashFund'));
     }
 
 
