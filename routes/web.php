@@ -12,28 +12,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [ProfileController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    // Financial routes
     Route::get('/financial', [FinancialController::class, 'index'])->name('financial.index');
     Route::post('/financial', [FinancialController::class, 'storeFinancial'])->name('financial.store');
     Route::put('/financial/{financial}', [FinancialController::class, 'update'])->name('financial.update');
     Route::delete('/financial/{id}', [FinancialController::class, 'destroy'])->name('financial.destroy');
     Route::get('/financial/{financial}/statements', [FinancialController::class, 'showStatements'])->name('financial.showStatements');
     Route::post('/financial/{financial}/statements', [FinancialController::class, 'storeStatement'])->name('financial.statement.store');
-
-    // Financial Statement routes
     Route::put('/financial/statements/{statement}', [FinancialStatementController::class, 'update'])->name('financial.statement.update');
     Route::delete('/financial/statements/{statement}', [FinancialStatementController::class, 'destroy'])->name('financial.statement.destroy');
-
-    // Cash funds routes
     Route::resource('cashfunds', CashFundController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::resource('cashfunds.informations', CashFundInformationController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::resource('cashfund_informations.member_cash', MemberCashController::class)->only(['index', 'store', 'update']);

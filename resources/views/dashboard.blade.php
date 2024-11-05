@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="mx-auto sm:pl-6 lg:pl-8">
-        <div class="relative mt-6 max-lg:mt-0 mb-16">
+        <div class="relative mt-6 max-lg:mt-0 mb-14">
             <div class="bg-white bg-opacity-5 overflow-hidden shadow-sm rounded-2xl">
                 <div class="pt-7 pb-14 px-12 text-white">
                     <h1 class="text-4xl mb-4 max-lg:mb-2 max-lg:text-2xl">Hi, {{ Auth::user()->name }}</h1>
@@ -11,72 +11,51 @@
                 <img src="{{ asset('/images/card-dashboard-1.png') }}" class="" alt="">
             </div>
         </div>
-        <p class="text-base text-white mb-4">Aktivitas terbaru di <a href="" class="text-[#EC8305]">Laporan
+        <p class="text-base text-white mb-4">
+            Aktivitas terbaru di <a href="{{ route('financial.index') }}" class="text-[#EC8305]">Laporan
                 Keuangan</a></p>
-        <div class="justify-between flex items-center gap-4 max-lg:justify-center max-lg:block">
+        <div class="justify-between flex gap-4 max-lg:justify-center max-lg:block">
             <div class="bg-white bg-opacity-5 p-4 w-7/12 max-lg:w-full max-lg:mb-8 rounded-2xl">
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right">
                         <thead class="text-xs text-white uppercase bg-[#20223A] bg-opacity-80">
                             <tr>
-                                <th scope="col" class="px-6 py-3 rounded-s-full">
+                                <th scope="col" class="px-6 py-3 text-center rounded-s-full">
                                     Kategori
                                 </th>
-                                <th scope="col" class="px-6 py-3 ">
+                                <th scope="col" class="px-6 py-3 text-center ">
                                     Tanggal
                                 </th>
-                                <th scope="col" class="px-6 py-3 ">
+                                <th scope="col" class="px-6 py-3 text-center ">
                                     Keterangan
                                 </th>
-                                <th scope="col" class="px-6 py-3 ">
+                                <th scope="col" class="px-6 py-3 text-center ">
                                     Kredit
                                 </th>
-                                <th scope="col" class="px-6 py-3 ">
+                                <th scope="col" class="px-6 py-3 text-center rounded-e-full">
                                     Debit
-                                </th>
-                                <th scope="col" class="px-6 py-3 rounded-e-full">
-                                    Saldo
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="">
-                            <tr class="border-b border-white">
-                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap ">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td class="px-6 py-4 text-white">
-                                    1
-                                </td>
-                                <td class="px-6 py-4 text-white">
-                                    $2999
-                                </td>
-                            </tr>
-                            <tr class="border-b border-white">
-                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap ">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td class="px-6 py-4 text-white">
-                                    1
-                                </td>
-                                <td class="px-6 py-4 text-white">
-                                    $2999
-                                </td>
-                            </tr>
-                            <tr class="border-b border-white">
-                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap ">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td class="px-6 py-4 text-white">
-                                    1
-                                </td>
-                                <td class="px-6 py-4 text-white">
-                                    $2999
-                                </td>
-                            </tr>
+                            @foreach ($recentFinancialStatements as $statement)
+                                <tr class="border-b border-white">
+                                    <td class="px-6 py-4 font-medium text-center text-white whitespace-nowrap">
+                                        {{ Str::limit($statement->financial->financial_name ?? 'N/A', 10) }} </td>
+                                    <td class="px-6 py-4 text-white text-center">{{ $statement->date }}</td>
+                                    <td class="px-6 py-4 text-white text-center">
+                                        {{ Str::limit($statement->information, 10) }}
+                                    </td>
+                                    <td class="px-6 py-4 text-white text-center">
+                                        Rp.{{ number_format($statement->credit, 0, ',', '.') }}
+                                    </td>
+                                    <td class="px-6 py-4 text-white text-center">
+                                        Rp.{{ number_format($statement->debit, 0, ',', '.') }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
-
             </div>
             <div class="grid grid-cols-2 max-lg:grid-cols-1 max-lg:gap-6 w-5/12 max-lg:mb-8 max-lg:w-full gap-2">
                 <div class="flex justify-between items-center p-4 rounded-2xl"
@@ -98,7 +77,7 @@
                         </defs>
                     </svg>
                     <div class="flex flex-col text-white w-1/2 text-center justify-center">
-                        <h1 class="text-4xl">2</h1>
+                        <h1 class="text-4xl">{{ $financialCount }}</h1>
                         <p class="text-base leading-5">Laporan keuangan </p>
                     </div>
                 </div>
@@ -122,7 +101,7 @@
                             stroke-linejoin="round" />
                     </svg>
                     <div class="flex flex-col text-white w-1/2 text-center justify-center">
-                        <h1 class="text-4xl">2</h1>
+                        <h1 class="text-4xl">{{ $cashfundCount }}</h1>
                         <p class="text-base leading-5">Uang Kas</p>
                     </div>
                 </div>
@@ -140,7 +119,9 @@
                             stroke-linejoin="round" />
                     </svg>
                     <div class="flex flex-col text-white w-1/2 text-center justify-center">
-                        <h1 class="text-4xl">20%</h1>
+                        <h1 class="text-4xl">
+                            {{ $percentPengeluaran }}%
+                        </h1>
                         <p class="text-base leading-5">Pengeluaran</p>
                     </div>
                 </div>
@@ -158,90 +139,59 @@
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <div class="flex flex-col text-white text-center w-1/2 justify-center">
-                        <h1 class="text-4xl">20%</h1>
-                        <p class="text-base leading-5">Pemasukan</p>
+                        <h1 class="text-4xl"> {{ $percentPengeluaran }}%
+                            <p class="text-base leading-5">Pemasukan</p>
                     </div>
                 </div>
             </div>
         </div>
-        <p class="text-base text-white mt-10 mb-4">Aktivitas terbaru di <a href="" class="text-[#EC8305]">Uang
+        <p class="text-base text-white mt-10 mb-4">Aktivitas terbaru di <a href="{{ route('cashfunds.index') }}"
+                class="text-[#EC8305]">Uang
                 Kas</a></p>
-        <div class="justify-between flex items-center gap-4 max-lg:justify-center max-lg:block">
+        <div class="justify-between flex gap-4 max-lg:justify-center max-lg:block">
             <div class="bg-white bg-opacity-5 p-4 w-7/12 max-lg:mb-8 max-lg:w-full rounded-2xl">
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right">
                         <thead class="text-xs text-white uppercase bg-[#20223A] bg-opacity-80">
                             <tr>
-                                <th scope="col" class="px-6 py-3 rounded-s-full">
+                                <th scope="col" class="px-6 py-3 text-center rounded-s-full">
                                     Kategori
                                 </th>
-                                <th scope="col" class="px-6 py-3 ">
+                                <th scope="col" class="px-6 py-3 text-center">
                                     Bulan
                                 </th>
-                                <th scope="col" class="px-6 py-3 ">
+                                <th scope="col" class="px-6 py-3 text-center ">
                                     Nama
                                 </th>
-                                <th scope="col" class="px-6 py-3 rounded-e-full ">
+                                <th scope="col" class="px-6 py-3 rounded-e-full text-center ">
                                     Status Pembayaran
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="">
-                            <tr class="border-b border-white">
-                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap ">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td class="px-6 py-4 text-white">
-                                    1
-                                </td>
-                                <td class="px-6 py-4 text-white">
-                                    $2999
-                                </td>
-                            </tr>
-                            <tr class="border-b border-white">
-                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap ">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td class="px-6 py-4 text-white">
-                                    1
-                                </td>
-                                <td class="px-6 py-4 text-white">
-                                    $2999
-                                </td>
-                            </tr>
-                            <tr class="border-b border-white">
-                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap ">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td class="px-6 py-4 text-white">
-                                    1
-                                </td>
-                                <td class="px-6 py-4 text-white">
-                                    $2999
-                                </td>
-                            </tr>
-                            <tr class="border-b border-white">
-                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap ">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td class="px-6 py-4 text-white">
-                                    1
-                                </td>
-                                <td class="px-6 py-4 text-white">
-                                    $2999
-                                </td>
-                            </tr>
-                            <tr class="border-b border-white">
-                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap ">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td class="px-6 py-4 text-white">
-                                    1
-                                </td>
-                                <td class="px-6 py-4 text-white">
-                                    $2999
-                                </td>
-                            </tr>
+                            @foreach ($cashFunds as $fund)
+                                @foreach ($fund->cashFundInformations as $info)
+                                    @foreach ($info->memberCash as $member)
+                                        <tr class="border-b border-white">
+                                            <td
+                                                class="px-6 py-4 font-medium  text-center text-white whitespace-nowrap">
+                                                {{ Str::limit($fund->cash_fund_name, 15) }}</td>
+                                            <td class="px-6 py-4 text-white text-center">
+                                                {{ $info->date ? \Carbon\Carbon::parse($info->date)->format('F Y') : 'Invalid Date' }}
+                                            </td>
+                                            <td class="px-6 py-4 text-white text-center">
+                                                {{ Str::limit($member->member_name, 15) }}</td>
+                                            <td class="px-6 py-4 text-white text-center">
+                                                @if ($member->week_1_status && $member->week_2_status && $member->week_3_status && $member->week_4_status)
+                                                    Lunas
+                                                @else
+                                                    Belum Lunas
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -249,7 +199,7 @@
             </div>
             <div class="flex flex-col justify-center items-center max-lg:mb-8 gap-2 w-5/12 max-lg:w-full">
                 <div
-                    class="bg-white bg-opacity-25 px-10 mb-4 py-4 w-[420px] max-lg:w-full text-base text-center rounded-lg text-white">
+                    class="bg-white bg-opacity-25 px-10 mb-4 py-4 w-full max-lg:w-full text-base text-center rounded-lg text-white">
                     Pakai <span class="text-[#EC8305]">fin</span>Track, belajar oke, organisasi oke
                 </div>
                 <div class="flex">

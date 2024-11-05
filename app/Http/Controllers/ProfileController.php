@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\CashFund;
+use App\Models\Financial;
+use App\Models\FinancialStatement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +59,29 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function dashboard()
+    {
+        $financialCount = Financial::count();
+        $cashfundCount = CashFund::count();
+        $financials = Financial::with('statements')->get();
+        $totalPengeluaran = $financials->flatMap->statements->sum('debit');
+        $totalPemasukan = $financials->flatMap->statements->sum('credit');
+        $totalAmount = $totalPengeluaran + $totalPemasukan;
+        $percentPengeluaran = $totalAmount > 0 ? ($totalPengeluaran / $totalAmount) * 100 : 0;
+        $percentPemasukan = $totalAmount > 0 ? ($totalPemasukan / $totalAmount) * 100 : 0;
+
+        $cashFunds = CashFund::with(['cashFundInformations.memberCash'])
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        $recentFinancialStatements = FinancialStatement::with('financial')
+            ->orderBy('updated_at', 'desc')
+            ->take(3)
+            ->get();
+
+        return view('dashboard', compact('recentFinancialStatements', 'cashFunds', 'financialCount', 'cashfundCount', 'totalPengeluaran', 'totalPemasukan', 'percentPengeluaran', 'percentPemasukan'));
     }
 }

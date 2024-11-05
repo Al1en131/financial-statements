@@ -23,11 +23,11 @@
                                             function formatUang1($jumlah)
                                             {
                                                 if ($jumlah >= 1000000) {
-                                                    return 'Rp. ' . number_format($jumlah / 1000000, 1, ',', '.') . 'M'; // Format dalam juta
+                                                    return 'Rp. ' . number_format($jumlah / 1000000, 1, ',', '.') . 'M';
                                                 } elseif ($jumlah >= 1000) {
-                                                    return 'Rp. ' . number_format($jumlah / 1000, 1, ',', '.') . 'K'; // Format dalam ribu
+                                                    return 'Rp. ' . number_format($jumlah / 1000, 1, ',', '.') . 'K';
                                                 } else {
-                                                    return 'Rp. ' . number_format($jumlah, 0, ',', '.'); // Format asli untuk kurang dari 1.000
+                                                    return 'Rp. ' . number_format($jumlah, 0, ',', '.');
                                                 }
                                             }
                                         @endphp
@@ -54,7 +54,6 @@
 
                                 $totalUnpaid = $members->count() - $totalPaid;
                             @endphp
-
                             <div class="py-4 px-6 flex justify-between w-1/3 gap-4 items-center rounded-2xl"
                                 style="background: linear-gradient(270deg, rgba(167, 233, 177, 0.55) 0%, rgba(88, 228, 109, 0.55) 100%);">
                                 <div class="flex flex-col">
@@ -150,7 +149,7 @@
 
         <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
             <div class="bg-white bg-opacity-75 rounded-lg shadow-lg px-10 py-12 w-96">
-                <h2 class="text-xl mb-4 text-[#20374D] font-bold">Add New Financial Statement</h2>
+                <h2 class="text-xl mb-4 text-[#20374D] font-bold">Tambah Transaksi</h2>
                 <form action="{{ route('cashfund_informations.member_cash.store', $cashFundInformation->id) }}"
                     method="POST">
                     @csrf
@@ -159,7 +158,7 @@
                         class="border-2 rounded border-[#20374D] p-2 mb-2 focus-outline focus:border-[#20374D] focus:ring-[#20374D] w-full">
                     <button type="submit"
                         class="bg-[#20374D] text-white bg-opacity-90 px-4 py-2 rounded">Tambah</button>
-                    <button type="button" onclick="closeModal()" class="mt-2 text-red-500">Cancel</button>
+                    <button type="button" onclick="closeModal()" class="mt-2 text-red-500">Batal</button>
                 </form>
             </div>
         </div>

@@ -123,8 +123,8 @@
                         stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>Kembali</a>
             <button onclick="openModal()"
-                class="border border-white rounded-xl text-white px-4 py-2 items-center hover:bg-white hover:bg-opacity-15 flex justify-between gap-2">Tambah
-                Transaksi <span>
+                class="border border-white rounded-xl text-white px-4 py-2 items-center hover:bg-white hover:bg-opacity-15 flex justify-between gap-2">
+                <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                         fill="none">
                         <g clip-path="url(#clip0_73_376)">
@@ -139,7 +139,9 @@
                                 <rect width="20" height="20" fill="white" />
                             </clipPath>
                         </defs>
-                    </svg></span></button>
+                    </svg></span>
+                    Tambah
+                Transaksi </button>
         </div>
         <div class="bg-white rounded-2xl bg-opacity-10 px-8 py-6">
             <div class="relative overflow-x-auto">
@@ -172,7 +174,8 @@
                                     {{ number_format($statement->debit, 0, ',', '.') }}</td>
                                 <td class="px-6 py-4 text-center">Rp.
                                     {{ number_format($statement->credit, 0, ',', '.') }}</td>
-                                <td class="px-6 py-4 text-center">Rp. {{ number_format($runningBalance, 0, ',', '.') }}
+                                <td class="px-6 py-4 text-center">Rp.
+                                    {{ number_format($runningBalance, 0, ',', '.') }}
                                 </td>
                                 <td class="px-6 py-4 text-center justify-center items-center">
                                     @if ($statement->image)
@@ -249,7 +252,8 @@
                         accept="image/*">
                     <img id="image-preview" src="" alt="Old Image" class="mb-2 w-32" style="display:none;">
 
-                    <button type="submit" class="bg-[#20374D] text-white bg-opacity-90 px-4 py-2 rounded">Edit</button>
+                    <button type="submit"
+                        class="bg-[#20374D] text-white bg-opacity-90 px-4 py-2 rounded">Edit</button>
                     <button type="button" onclick="closeEditModal()" class="mt-2 text-red-500">Cancel</button>
                 </form>
             </div>

@@ -13,10 +13,8 @@ class CashFundInformationController extends Controller
     {
         $cashFund = CashFund::findOrFail($cashFundId);
         $cashFundInformations = CashFundInformation::where('cash_fund_id', $cashFundId)->get();
-
-        // Format the date using Carbon
         foreach ($cashFundInformations as $info) {
-            $info->formatted_date = Carbon::parse($info->date)->format('Y-m'); // Format date
+            $info->formatted_date = Carbon::parse($info->date)->format('Y-m');
         }
 
         return view('cashfund_informations.index', compact('cashFundInformations', 'cashFund'));

@@ -55,7 +55,6 @@ class FinancialController extends Controller
             ->where('user_id', Auth::id())
             ->with('statements')
             ->firstOrFail();
-        // In your FinancialController
         $totalDebit = $financial->statements->sum('debit');
         $totalCredit = $financial->statements->sum('credit');
         $sisaSaldo = $totalDebit - $totalCredit;

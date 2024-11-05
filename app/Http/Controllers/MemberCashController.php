@@ -7,36 +7,25 @@ use App\Models\MemberCash;
 use App\Models\CashFundInformation;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Auth;
 
 class MemberCashController extends Controller
 {
     public function index($cashFundInformationId)
     {
-        // Fetch the specific cash fund information
-        $cashFund = CashFund::where('user_id', Auth::id())->get();
+        $cashFund = CashFund::where('user_id', Auth::id())->first();
         $cashFundInformation = CashFundInformation::findOrFail($cashFundInformationId);
-
-        // Fetch all members associated with this cash fund information
         $members = MemberCash::where('cash_fund_information_id', $cashFundInformationId)->get();
-
-        // Get the cash detail amount (assuming it is the amount per week)
-        $cashDetail = $cashFundInformation->cash_detail; // Adjust according to your actual column name
-
-        // Initialize the total collected amount
+        $cashDetail = $cashFundInformation->cash_detail;
         $totalCollected = 0;
 
-        // Calculate the total collected funds based on the status of payments
         foreach ($members as $member) {
-            // Count the number of weeks paid by the member
             $weeksPaid = 0;
             if ($member->week_1_status) $weeksPaid++;
             if ($member->week_2_status) $weeksPaid++;
             if ($member->week_3_status) $weeksPaid++;
             if ($member->week_4_status) $weeksPaid++;
 
-            // Add to total collected: cash_detail * weeksPaid
             $totalCollected += $cashDetail * $weeksPaid;
         }
 
