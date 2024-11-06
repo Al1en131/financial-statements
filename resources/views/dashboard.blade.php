@@ -1,17 +1,19 @@
 <x-app-layout>
-    <div class="mx-auto sm:pl-6 lg:pl-8">
-        <div class="relative mt-6 max-lg:mt-0 mb-14">
+    <div class="mx-auto pl-6 lg:pl-8">
+        <div class="relative mt-6 max-lg:mt-0 mb-14 max-lg:mb-8">
             <div class="bg-white bg-opacity-5 overflow-hidden shadow-sm rounded-2xl">
                 <div class="pt-7 pb-14 px-12 text-white">
                     <h1 class="text-4xl mb-4 max-lg:mb-2 max-lg:text-2xl">Hi, {{ Auth::user()->name }}</h1>
-                    <p class="text-base">Ayo pantau keuangan organisasimu, sudah berapa tuh pengeluarannya?</p>
+                    <p class="text-base">Ayo pantau keuangan organisasimu, sudah berapa tuh
+                        pengeluarannya?</p>
                 </div>
             </div>
-            <div class="absolute -top-16 -right-10 max-lg:top-24 max-lg:-right-10 max-lg:w-60 max-lg:h-60">
+            <div
+                class="absolute -top-16 -right-10 max-lg:top-[70px] max-md:hidden max-lg:-right-4 max-lg:w-60 max-lg:h-60">
                 <img src="{{ asset('/images/card-dashboard-1.png') }}" class="" alt="">
             </div>
         </div>
-        <p class="text-base text-white mb-4">
+        <p class="text-base text-white max-lg:justify-center max-lg:text-center mb-4">
             Aktivitas terbaru di <a href="{{ route('financial.index') }}" class="text-[#EC8305]">Laporan
                 Keuangan</a></p>
         <div class="justify-between flex gap-4 max-lg:justify-center max-lg:block">
@@ -38,10 +40,11 @@
                             </tr>
                         </thead>
                         <tbody class="">
-                            @foreach ($recentFinancialStatements as $statement)
+                            @forelse ($recentFinancialStatements as $statement)
                                 <tr class="border-b border-white">
                                     <td class="px-6 py-4 font-medium text-center text-white whitespace-nowrap">
-                                        {{ Str::limit($statement->financial->financial_name ?? 'N/A', 10) }} </td>
+                                        {{ Str::limit($statement->financial->financial_name ?? 'N/A', 10) }}
+                                    </td>
                                     <td class="px-6 py-4 text-white text-center">{{ $statement->date }}</td>
                                     <td class="px-6 py-4 text-white text-center">
                                         {{ Str::limit($statement->information, 10) }}
@@ -50,9 +53,22 @@
                                         Rp.{{ number_format($statement->credit, 0, ',', '.') }}
                                     </td>
                                     <td class="px-6 py-4 text-white text-center">
-                                        Rp.{{ number_format($statement->debit, 0, ',', '.') }}</td>
+                                        Rp.{{ number_format($statement->debit, 0, ',', '.') }}
+                                    </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="px-6 py-4 text-center text-white">
+                                        <div
+                                            class="col-span-3 text-center flex justify-center items-center text-white pb-2">
+                                            <img src="{{ asset('/images/nothing-activity.png') }}" class=""
+                                                alt="">
+                                        </div>
+                                        <p class="text-center text-white flex justify-center col-span-3">Belum ada
+                                            aktivitas</p>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -77,7 +93,7 @@
                         </defs>
                     </svg>
                     <div class="flex flex-col text-white w-1/2 text-center justify-center">
-                        <h1 class="text-4xl">{{ $financialCount }}</h1>
+                        <h1 class="text-3xl">{{ $financialCount }}</h1>
                         <p class="text-base leading-5">Laporan keuangan </p>
                     </div>
                 </div>
@@ -101,7 +117,7 @@
                             stroke-linejoin="round" />
                     </svg>
                     <div class="flex flex-col text-white w-1/2 text-center justify-center">
-                        <h1 class="text-4xl">{{ $cashfundCount }}</h1>
+                        <h1 class="text-3xl">{{ $cashfundCount }}</h1>
                         <p class="text-base leading-5">Uang Kas</p>
                     </div>
                 </div>
@@ -119,8 +135,8 @@
                             stroke-linejoin="round" />
                     </svg>
                     <div class="flex flex-col text-white w-1/2 text-center justify-center">
-                        <h1 class="text-4xl">
-                            {{ $percentPengeluaran }}%
+                        <h1 class="text-3xl">
+                            {{ $percentPemasukan }}%
                         </h1>
                         <p class="text-base leading-5">Pengeluaran</p>
                     </div>
@@ -139,14 +155,14 @@
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <div class="flex flex-col text-white text-center w-1/2 justify-center">
-                        <h1 class="text-4xl"> {{ $percentPengeluaran }}%
+                        <h1 class="text-3xl"> {{ $percentPengeluaran }}%
                             <p class="text-base leading-5">Pemasukan</p>
                     </div>
                 </div>
             </div>
         </div>
-        <p class="text-base text-white mt-10 mb-4">Aktivitas terbaru di <a href="{{ route('cashfunds.index') }}"
-                class="text-[#EC8305]">Uang
+        <p class="text-base text-white mt-10 max-lg:mt-8 mb-4 max-lg:text-center">Aktivitas terbaru di <a
+                href="{{ route('cashfunds.index') }}" class="text-[#EC8305]">Uang
                 Kas</a></p>
         <div class="justify-between flex gap-4 max-lg:justify-center max-lg:block">
             <div class="bg-white bg-opacity-5 p-4 w-7/12 max-lg:mb-8 max-lg:w-full rounded-2xl">
@@ -168,19 +184,27 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="">
+                        <tbody>
+                            @php
+                                $noData = true;
+                            @endphp
+
                             @foreach ($cashFunds as $fund)
                                 @foreach ($fund->cashFundInformations as $info)
                                     @foreach ($info->memberCash as $member)
+                                        @php
+                                            $noData = false;
+                                        @endphp
                                         <tr class="border-b border-white">
-                                            <td
-                                                class="px-6 py-4 font-medium  text-center text-white whitespace-nowrap">
-                                                {{ Str::limit($fund->cash_fund_name, 15) }}</td>
+                                            <td class="px-6 py-4 font-medium text-center text-white whitespace-nowrap">
+                                                {{ Str::limit($fund->cash_fund_name, 15) }}
+                                            </td>
                                             <td class="px-6 py-4 text-white text-center">
                                                 {{ $info->date ? \Carbon\Carbon::parse($info->date)->format('F Y') : 'Invalid Date' }}
                                             </td>
                                             <td class="px-6 py-4 text-white text-center">
-                                                {{ Str::limit($member->member_name, 15) }}</td>
+                                                {{ Str::limit($member->member_name, 15) }}
+                                            </td>
                                             <td class="px-6 py-4 text-white text-center">
                                                 @if ($member->week_1_status && $member->week_2_status && $member->week_3_status && $member->week_4_status)
                                                     Lunas
@@ -192,6 +216,20 @@
                                     @endforeach
                                 @endforeach
                             @endforeach
+
+                            @if ($noData)
+                                <tr>
+                                    <td colspan="4" class="px-6 py-4 text-center text-white">
+                                        <div
+                                            class="col-span-3 text-center flex justify-center items-center pt-10 text-white pb-2">
+                                            <img src="{{ asset('/images/nothing-activity.png') }}" class=""
+                                                alt="">
+                                        </div>
+                                        <p class="text-center text-white flex justify-center col-span-3">Belum ada
+                                            aktivitas</p>
+                                    </td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -204,8 +242,9 @@
                 </div>
                 <div class="flex">
                     <img src="{{ asset('/images/card-dashboard-2.png') }}" class="" alt="">
-                    <div class="flex flex-col text-xs relative">
-                        <div class="bg-[#282E64] px-5 py-3 text-white rounded-tl-3xl rounded-br-3xl">
+                    <div class="flex flex-col text-[9px] max-lg:text-[8px] relative">
+                        <div
+                            class="bg-[#282E64] px-4 py-2 max-lg:py-1 max-lg:px-3 text-white rounded-tl-3xl rounded-br-3xl">
                             <p>
                                 Gak ada tuh pusing mikirin keuangan <span class="text-[#CF0]">organisasi</span> yang
                                 ganggu
@@ -213,7 +252,7 @@
                             </p>
                         </div>
                         <div
-                            class="bg-[#282E64] absolute bottom-20 px-5 max-lg:bottom-4 py-3 mt-2 text-white rounded-tl-3xl rounded-br-3xl">
+                            class="bg-[#282E64] absolute bottom-20 px-4 max-lg:py-1 max-lg:px-3 max-lg:bottom-20 py-2 mt-2 text-white rounded-tl-3xl rounded-br-3xl">
                             <p>
                                 Sama <span class="text-[#EC8305]">fin</span>Track urusan keuangan organisasimu pasti
                                 beres meow~~

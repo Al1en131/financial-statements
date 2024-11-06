@@ -10,12 +10,10 @@ class CashFundController extends Controller
 {
     public function index()
     {
-        // Check if user is authenticated
         if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        // Retrieve only the cash funds of the authenticated user
         $cashFunds = CashFund::where('user_id', Auth::id())->get();
 
         return view('cashfunds.index', compact('cashFunds'));
@@ -27,14 +25,13 @@ class CashFundController extends Controller
             'cash_fund_name' => 'required|string|max:255',
         ]);
 
-        // Create cash fund only if the user is authenticated
         if (Auth::check()) {
             CashFund::create([
                 'user_id' => Auth::id(),
                 'cash_fund_name' => $request->cash_fund_name,
             ]);
 
-            return redirect()->route('cashfunds.index')->with('success', 'Cash Fund created successfully.');
+            return redirect()->route('cashfunds.index')->with('success', 'Data berhasil ditambahkan');
         }
 
         return redirect()->route('login')->withErrors('You need to log in to create a cash fund.');
@@ -50,7 +47,7 @@ class CashFundController extends Controller
         $cashFund->cash_fund_name = $request->cash_fund_name;
         $cashFund->save();
 
-        return redirect()->route('cashfunds.index')->with('success', 'Cash Fund updated successfully');
+        return redirect()->route('cashfunds.index')->with('success', 'Data berhasil diupdate');
     }
 
     public function destroy($id)
@@ -58,6 +55,6 @@ class CashFundController extends Controller
         $cashFund = CashFund::findOrFail($id);
         $cashFund->delete();
 
-        return redirect()->route('cashfunds.index')->with('success', 'Cash Fund deleted successfully');
+        return redirect()->route('cashfunds.index')->with('success', 'Data Berhasil dihapus');
     }
 }

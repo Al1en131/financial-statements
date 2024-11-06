@@ -1,14 +1,14 @@
 <x-app-layout>
-    <div class="container sm:pl-6 lg:pl-8">
-        <div class="relative mt-6 max-lg:mt-0 mb-16">
-            <div class="absolute -top-6 left-10 max-lg:top-24 w-48 h-48 max-lg:-right-10 max-lg:w-60 max-lg:h-60">
+    <div class="container lg:pl-8 pl-6">
+        <div class="relative mt-6 max-lg:mt-0 mb-16 max-lg:mb-8">
+            <div class="absolute -top-6 left-10 max-lg:hidden w-48 h-48 max-lg:-right-10 max-lg:w-60 max-lg:h-60">
                 <img src="{{ asset('/images/card-financial-3.png') }}" class="" alt="">
             </div>
             <div class="bg-white bg-opacity-5 overflow-hidden shadow-sm rounded-2xl">
                 <div class="flex justify-end">
-                    <div class="py-8 px-12 text-white">
+                    <div class="py-8 px-12 max-lg:px-4 text-white">
                         <h1 class="text-white font-bold text-3xl text-center mb-3">{{ $cashFund->cash_fund_name }}</h1>
-                        <p class="text-base px-8 text-center">Kalo tamu <span class="text-[#EC8305]">wajib
+                        <p class="text-base px-8 max-lg:px-0 text-center">Kalo tamu <span class="text-[#EC8305]">wajib
                                 lapor</span>, kalo
                             bendahara wajib apa? ya sama, <span class="text-[#EC8305]">wajib lapor</span> juga
                             xixixi
@@ -17,8 +17,49 @@
                 </div>
             </div>
         </div>
-        <div class="flex justify-between mb-8 pb-4">
-            <a href="{{ route('cashfunds.index') }}" class="text-white flex justify-between gap-2 items-center"><svg
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-white bg-opacity-50"
+                    role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <div>{{ $error }}</div>
+                    <button type="button" class="ml-auto text-black hover:text-gray-800"
+                        onclick="this.parentElement.style.display='none'">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 7.586l4.293-4.293a1 1 0 111.414 1.414L11.414 9l4.293 4.293a1 1 0 01-1.414 1.414L10 10.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 9 4.293 4.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            @endforeach
+        @endif
+
+        @if (session('success'))
+            <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-white bg-opacity-50"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <div>{{ session('success') }}</div>
+                <button type="button" class="ml-auto text-black hover:text-gray-800"
+                    onclick="this.parentElement.style.display='none'">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 7.586l4.293-4.293a1 1 0 111.414 1.414L11.414 9l4.293 4.293a1 1 0 01-1.414 1.414L10 10.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 9 4.293 4.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        @endif
+        <div class="flex justify-between max-lg:justify-center max-lg:block max-lg:space-y-4 mb-8 pb-4">
+            <a href="{{ route('cashfunds.index') }}" class="text-white flex gap-2 items-center"><svg
                     xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path
                         d="M9 13L6 10M6 10L9 7M6 10H14M1 10C1 8.8181 1.23279 7.64778 1.68508 6.55585C2.13738 5.46392 2.80031 4.47177 3.63604 3.63604C4.47177 2.80031 5.46392 2.13738 6.55585 1.68508C7.64778 1.23279 8.8181 1 10 1C11.1819 1 12.3522 1.23279 13.4442 1.68508C14.5361 2.13738 15.5282 2.80031 16.364 3.63604C17.1997 4.47177 17.8626 5.46392 18.3149 6.55585C18.7672 7.64778 19 8.8181 19 10C19 12.3869 18.0518 14.6761 16.364 16.364C14.6761 18.0518 12.3869 19 10 19C7.61305 19 5.32387 18.0518 3.63604 16.364C1.94821 14.6761 1 12.3869 1 10Z"
@@ -44,14 +85,14 @@
                     </svg>Buat Informasi Laporan</button>
                 <div id="modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
                     <div class="modal-overlay fixed inset-0 bg-black opacity-50"></div>
-                    <div class="modal-content bg-white bg-opacity-75 rounded-lg px-10 py-12 z-10">
+                    <div class="modal-content bg-white bg-opacity-75 max-lg:mx-2 rounded-lg px-10 py-12 z-10">
                         <h2 class="text-xl mb-4 text-[#20374D] font-bold">Tambah Informasi Laporan Kas</h2>
                         <form action="{{ route('cashfunds.informations.store', $cashFund->id) }}" method="POST">
                             @csrf
                             <input type="date" name="date" required
                                 class="border-2 rounded border-[#20374D] p-2 mb-4 focus-outline focus:border-[#20374D] focus:ring-[#20374D] w-full">
                             <input type="number" name="cash_detail" required step="0.01" min="0"
-                                placeholder="Cash Amount"
+                                placeholder="Jumlah uang kas per minggu"
                                 class="border-2 rounded border-[#20374D] p-2 mb-4 focus-outline focus:border-[#20374D] focus:ring-[#20374D] w-full">
                             <div class="flex justify-end">
                                 <button type="button" id="closeModal"
@@ -64,7 +105,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-3 gap-4 mb-4">
+        <div class="grid grid-cols-3 max-lg:grid-cols-1 gap-4 mb-4">
             @if ($cashFundInformations->isEmpty())
                 <div class="col-span-3 text-center flex justify-center items-center text-white pb-2 pt-12">
                     <img src="{{ asset('/images/nothing-activity.png') }}" class="" alt="">
@@ -124,7 +165,7 @@
         </div>
         <div id="editModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
             <div class="modal-overlay fixed inset-0 bg-black opacity-50"></div>
-            <div class="modal-content bg-white bg-opacity-75 rounded-lg px-10 py-12 z-10">
+            <div class="modal-content bg-white bg-opacity-75 max-lg:mx-2 rounded-lg px-10 py-12 z-10">
                 <h2 class="text-xl mb-4 text-[#20374D] font-bold">Edit Informasi Laporan Kas</h2>
                 <form id="editForm" action="" method="POST">
                     @csrf
@@ -166,10 +207,9 @@
         const editModal = document.getElementById('editModal');
         const editForm = document.getElementById('editForm');
         const editCashFundDate = document.getElementById(
-            'editCashFundInformationDate'); // Ganti variabel menjadi 'editCashFundDate'
+            'editCashFundInformationDate');
         const closeEditModal = document.getElementById('closeEditModal');
 
-        // Fungsi untuk membuka modal edit
         function openEditModal(id, date, cashDetail) {
             const editModal = document.getElementById('editModal');
             const editForm = document.getElementById('editForm');
@@ -181,19 +221,16 @@
             editModal.classList.remove('hidden');
         }
 
-        // Fungsi untuk menutup modal edit
         closeEditModal.addEventListener('click', () => {
-            editModal.classList.add('hidden'); // Sembunyikan modal
+            editModal.classList.add('hidden');
         });
 
-        // Menutup modal jika pengguna mengklik area di luar konten modal
         editModal.addEventListener('click', (event) => {
             if (event.target === editModal) {
                 editModal.classList.add('hidden');
             }
         });
 
-        // Fungsi untuk membuka/menutup dropdown
         function toggleDropdown(id) {
             const dropdown = document.getElementById(`dropdown-${id}`);
             dropdown.classList.toggle('hidden');
@@ -211,7 +248,6 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Jika dikonfirmasi, submit form delete
                     document.getElementById(`delete-form-${id}`).submit();
                 }
             });

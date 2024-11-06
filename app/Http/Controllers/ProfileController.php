@@ -6,11 +6,16 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\CashFund;
 use App\Models\Financial;
 use App\Models\FinancialStatement;
+use App\Models\User;
+use Illuminate\Container\Attributes\Log;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log as FacadesLog;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProfileController extends Controller
 {
@@ -37,7 +42,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('status', 'Data berhasil diupdate');
     }
 
     /**
@@ -61,11 +66,17 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-    public function dashboard()
+    public function dashboard(User $user)
     {
-        $financialCount = Financial::count();
-        $cashfundCount = CashFund::count();
-        $financials = Financial::with('statements')->get();
+        $userId = Auth::id();
+        $financialCount = Financial::where('user_id', $userId)->count();
+        $cashfundCount = CashFund::where('user_id', $userId)->count();
+        $financials = Financial::with(['statements' => function ($query) use ($userId) {
+            $query->whereHas('financial', function ($q) use ($userId) {
+                $q->where('user_id', $userId);
+            });
+        }])->where('user_id', $userId)->get();
+
         $totalPengeluaran = $financials->flatMap->statements->sum('debit');
         $totalPemasukan = $financials->flatMap->statements->sum('credit');
         $totalAmount = $totalPengeluaran + $totalPemasukan;
@@ -73,11 +84,15 @@ class ProfileController extends Controller
         $percentPemasukan = $totalAmount > 0 ? ($totalPemasukan / $totalAmount) * 100 : 0;
 
         $cashFunds = CashFund::with(['cashFundInformations.memberCash'])
+            ->where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
 
         $recentFinancialStatements = FinancialStatement::with('financial')
+            ->whereHas('financial', function ($q) use ($userId) {
+                $q->where('user_id', $userId);
+            })
             ->orderBy('updated_at', 'desc')
             ->take(3)
             ->get();

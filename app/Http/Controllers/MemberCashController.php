@@ -36,32 +36,27 @@ class MemberCashController extends Controller
 
     public function store(Request $request, $cashFundInformationId)
     {
-        // Log the incoming request data
         Log::info('Request data:', $request->all());
 
-        // Validate the request
         $request->validate([
             'member_name' => 'required|string|max:255',
         ]);
 
-        // Create a new MemberCash entry
         MemberCash::create([
             'cash_fund_information_id' => $cashFundInformationId,
             'member_name' => $request->member_name,
         ]);
 
         return redirect()->route('cashfund_informations.member_cash.index', $cashFundInformationId)
-            ->with('success', 'Member added successfully!');
+            ->with('success', 'Data berhasil ditambahkan');
     }
 
     public function update(Request $request, $cashFundInformationId, $member_cash)
     {
         $memberCash = MemberCash::findOrFail($member_cash);
 
-        // Log data permintaan yang masuk
         Log::info('Updating MemberCash:', $request->all());
 
-        // Validasi permintaan
         $request->validate([
             'week_1_status' => 'boolean',
             'week_2_status' => 'boolean',
@@ -69,7 +64,6 @@ class MemberCashController extends Controller
             'week_4_status' => 'boolean',
         ]);
 
-        // Perbarui status pembayaran
         $memberCash->update([
             'week_1_status' => $request->has('week_1_status'),
             'week_2_status' => $request->has('week_2_status'),
@@ -78,33 +72,28 @@ class MemberCashController extends Controller
         ]);
 
         return redirect()->route('cashfund_informations.member_cash.index', $cashFundInformationId)
-            ->with('success', 'Payment status updated successfully!');
+            ->with('success', 'Data berhasil diupdate');
     }
 
     public function updateName(Request $request, $cashFundInformationId, $memberId)
     {
-        // Validate the incoming request
         $request->validate([
-            'member_name' => 'required|string|max:255', // Adjust validation as necessary
+            'member_name' => 'required|string|max:255',
         ]);
 
-        // Find the member cash record by ID
         $member = MemberCash::where('cash_fund_information_id', $cashFundInformationId)
             ->where('id', $memberId)
             ->first();
 
-        // Check if the member exists
         if (!$member) {
             return redirect()->back()->withErrors('Member not found.')->withInput();
         }
 
-        // Update the member's name
         $member->name = $request->input('member_name');
         $member->save();
 
-        // Redirect back with a success message
         return redirect()->route('cashfund_informations.show', $cashFundInformationId)
-            ->with('success', 'Member name updated successfully.');
+            ->with('success', 'Data berhasil diupdate');
     }
 
 
@@ -114,6 +103,6 @@ class MemberCashController extends Controller
         $member->delete();
 
         return redirect()->route('cashfund_informations.member_cash.index', $cashFundInformationId)
-            ->with('success', 'Member deleted successfully.');
+            ->with('success', 'Data Berhasil dihapus');
     }
 }

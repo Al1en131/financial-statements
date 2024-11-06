@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'finTrack') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -30,15 +30,9 @@
             @endisset
 
             <!-- Page Content -->
-            <main class="sm:ml-64 pl-4 min-h-screen pr-4 sm:pr-6 lg:pr-10 py-[89px]">
+            <main class="sm:ml-64 min-h-screen pr-6 sm:pr-6 lg:pr-10 py-16 max-lg:py-20">
                 {{ $slot }}
             </main>
         </div>
     </body>
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('default-sidebar');
-            sidebar.classList.toggle('-translate-x-full');
-        }
-    </script>
 </html>
