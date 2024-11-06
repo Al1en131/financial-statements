@@ -10,8 +10,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" rel="stylesheet">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=poppins:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -22,16 +24,21 @@
     </script>
 </head>
 
-<body class="relative bg-[#202239] antialiased text-white font-sans">
-    <header class="fixed top-0 w-full z-10 px-8 max-lg:px-6">
-        <div class="container mx-auto flex justify-between items-center p-4 bg-white/10 rounded-[50px] mt-3 md:px-8">
+<body class="relative bg-[#20223A] antialiased text-white font-sans">
+    <div style="background: #0070FF; filter: blur(242.35px);width: 365px;height: 372px;"
+        class="absolute max-lg:hidden -z-5 right-0 top-0">
+    </div>
+    <header class="fixed top-0 w-full py-8 max-lg:py-4 z-50 px-8 max-lg:px-6">
+        <div
+            class="container mx-auto flex justify-between items-center p-4 bg-white bg-opacity-10 rounded-[50px] mt-3 md:px-8">
             <!-- Logo -->
             <div class="text-2xl font-bold">
                 <span class="text-orange-400">fin</span>Track
             </div>
-            <!-- Navigation Menu and Buttons for Desktop -->
+
+            <!-- Centered Navigation Menu and Buttons for Desktop -->
             <div id="menu"
-                class="hidden fixed inset-0 bg-black gap-28 bg-opacity-80 md:bg-opacity-0 md:relative md:flex md:inset-auto md:bg-transparent flex-col md:flex-row md:items-center md:justify-center md:space-x-6 p-8 md:p-0">
+                class="hidden fixed top-28 inset-0 max-lg:mb-80 max-lg:px-6 max-lg:mx-6 bg-black bg-opacity-80 rounded-3xl md:relative md:flex md:inset-auto md:bg-transparent md:bg-opacity-0 flex-col md:flex-row md:items-center md:justify-center md:space-x-6 p-8 md:p-0">
                 <nav class="flex flex-col md:flex-row md:items-center md:space-x-6 space-y-4 md:space-y-0 text-center">
                     <a href="#home" class="text-white hover:text-blue-300">Home</a>
                     <a href="#about" class="text-white hover:text-blue-300">About</a>
@@ -39,16 +46,43 @@
                     <a href="#team" class="text-white hover:text-blue-300">Our team</a>
                 </nav>
 
-                <!-- Buttons (will also be in the dropdown on mobile) -->
+                <!-- Auth-based buttons for desktop and mobile -->
                 <div
-                    class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 mt-4 md:mt-0 text-center max-lg:w-full">
-                    <a href="{{ route('login') }}"
-                        class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 py-2 rounded-[35px] border-2 border-[#5a98e8] max-lg:w-full">Login</a>
-                    <a href="{{ route('register') }}"
-                        class="w-[130px] h-[45.25px] bg-[#5a98e8] py-2 rounded-[59px] border border-[#202239] max-lg:w-full">Register</a>
+                    class="flex flex-col justify-center items-center md:flex-row md:space-x-4 space-y-4 md:space-y-0 mt-4 md:mt-0 text-center max-lg:w-full">
+                    @auth
+                        <a href="{{ route('dashboard') }}"
+                            class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 py-2 rounded-[35px] hover:text-[#20223A] hover:bg-[#5a98e8] border-2 border-[#5a98e8]">
+                            Dashboard
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 py-2 rounded-[35px] hover:text-[#20223A] hover:bg-[#5a98e8] border-2 border-[#5a98e8]">
+                            Login
+                        </a>
+                        <a href="{{ route('register') }}"
+                            class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 py-2 rounded-[59px] hover:bg-[#5a98e8] hover:text-[#20223A] border-2 border-[#5a98e8]">
+                            Register
+                        </a>
+                    @endauth
                 </div>
             </div>
-            <!-- Hamburger Menu Icon -->
+
+
+
+            <!-- Buttons (only visible on larger screens) -->
+            <div class="hidden md:flex md:justify-center text-center space-x-4">
+                @auth
+                    <a href="{{ route('dashboard') }}"
+                        class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 py-2 rounded-[35px] hover:text-[#20223A] hover:bg-[#5a98e8] border-2 border-[#5a98e8]">Dashboard</a>
+                @else
+                    <a href="{{ route('login') }}"
+                        class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 py-2 rounded-[35px] hover:text-[#20223A] hover:bg-[#5a98e8] border-2 border-[#5a98e8]">Login</a>
+                    <a href="{{ route('register') }}"
+                        class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 py-2 rounded-[59px] hover:bg-[#5a98e8] hover:text-[#20223A] border-2 border-[#5a98e8]">Register</a>
+                @endauth
+            </div>
+
+            <!-- Hamburger Menu Icon for Mobile -->
             <button id="menu-btn" class="md:hidden focus:outline-none" onclick="toggleMenu()">
                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
@@ -58,31 +92,34 @@
             </button>
         </div>
     </header>
+
+    <div style="background: #0070FF; filter: blur(328.75px); width: 250px;height: 299.383px;"
+        class="absolute left-0 top-56 -z-0 max-lg:hidden"></div>
     <!-- Hero Section -->
-    <section class="px-8 max-lg:px-6 pt-12 max-lg:pt-20" id="home">
-        <div class="m-6 max-lg:m-0 container mx-auto flex justify-center items-center">
+    <section class="px-8 max-lg:px-6 pt-28 max-lg:pt-26 z-20" id="home">
+        <div class="m-6 max-lg:m-0 container z-20 mx-auto flex justify-center items-center">
             <h1
-                class="text-[12px] md:text-3xl font-semibold mb-4 flex items-center mt-12 max-lg:mt-4 text-center space-x-2">
+                class="text-[14px]  md:text-3xl font-semibold mb-4 flex items-center mt-12 max-lg:mt-4 text-center space-x-2">
                 <span>Atur keuangan organisasimu dengan</span>
                 <span class="text-orange-400">fin</span>Track
             </h1>
 
         </div>
         <div
-            class=" md:h-[450px] max-lg:py-8 bg-white bg-opacity-10 rounded-[20px] container mx-auto flex justify-between items-center px-7 max-lg:px-4 ">
+            class=" md:h-[450px] z-20 max-lg:py-8 bg-white bg-opacity-10 rounded-[20px] container mx-auto flex justify-between items-center px-7 max-lg:px-4 ">
             <div class="md:w-1/2 max-lg:space-y-4 max-lg:w-full">
-                <p class="text-[#ffae4d] text-xl max-lg:text-sm font-semibold">
+                <p class="text-[#ffae4d] text-xl max-lg:text-sm max-lg:text-center font-semibold">
                     Semua jadi mudah hanya dengan,
                 </p>
-                <h1 class="text-[90px] font-bold font-['Poppins'] max-lg:text-5xl leading-[132.06px] ">
+                <h1
+                    class="text-[90px] z-20 font-bold font-['Poppins'] max-lg:text-center max-lg:text-5xl leading-[132.06px] ">
                     <span class="text-orange-400">fin</span>Track
                 </h1>
-                <p class="text-lg mb-6 max-lg:text-sm text-balance">finTrack memudahkan organisasi dalam mencatat
+                <p class="text-lg mb-6 leading-8 z-20 max-lg:text-sm max-lg:text-center text-balance">finTrack
+                    memudahkan
+                    organisasi dalam mencatat
                     transaksi, mengelola anggaran, dan membuat laporan keuangan terperinci dengan antarmuka yang ramah
                     pengguna dan efisien</p>
-                <button
-                    class="w-[420px] max-lg:w-44 h-14 max-lg:h-10 max-lg:textsm bg-[#d9d9d9]/0 rounded-[35px] border-2 border-[#5a98e8] hover:bg-blue-500 hover:text-white">Get
-                    Started</button>
             </div>
             <div class="md:w-1/2 mt-10 md:mt-0 flex max-lg:hidden justify-center">
                 <img src="{{ asset('images/home-character.png') }}" alt="Illustration">
@@ -92,7 +129,10 @@
     </section>
 
     <!-- About Section -->
-    <section class="py-20 max-lg:py-10 px-8 max-lg:px-6" id="about">
+    <section class="pt-8 md:mt-40 pb-10 max-lg:pt-10 relative max-lg:pb-10 px-8 max-lg:px-6" id="about">
+        <div class="absolute right-0 top-64 -z-0 max-lg:hidden"
+            style="background: #0070FF;filter: blur(242.35000610351562px);width: 306px;height: 252px;flex-shrink: 0;">
+        </div>
         <div class="container mx-auto md:px-6">
             <div class="relative md:inline-flex md:flex-col items-center max-lg:text-center  mb-4">
                 <h2 class="text-2xl font-bold ">
@@ -101,14 +141,15 @@
                 <div class="w-full mt-1 h-2 bg-white rounded-full"></div>
             </div>
             <div
-                class=" md:h-[305px] max-lg:py-8 bg-white/10 rounded-[20px] container mx-auto flex justify-between items-center px-7 ">
+                class=" md:h-[305px] max-lg:py-8 bg-white/10 z-10 rounded-[20px] container mx-auto flex justify-between items-center px-7 ">
                 <div class="md:w-1/2 mt-10 max-lg:hidden md:mt-0 flex justify-center">
                     <img src="{{ asset('images/Team-pana.png') }}" alt="Illustration">
                     <!-- Ganti URL gambar dengan URL gambar yang sesuai -->
                 </div>
                 <div>
 
-                    <p class="md:w-[667px] text-left max-lg:text-justify text-xl max-lg:text-sm font-medium space-x-1 ">
+                    <p
+                        class="md:w-[667px] z-20 text-left max-lg:text-justify text-xl max-lg:text-sm font-medium space-x-1 ">
                         <span>Fintrack adalah platform praktis
                             buat bantuin</span><span class="text-[#EC8305]">komunitas</span><span
                             style="text-white text-2xl font-semibold font-['Poppins']"> atau </span><span
@@ -125,9 +166,9 @@
                 <div class="space-y-6 md:w-1/2 max-lg:w-full">
                     <!-- Fitur 1 -->
                     <div class="flex items-start">
-                        <div
-                            class="bg-gradient-to-r from-[#2c506699] to-[#d4d4d499] p-4 flex items-center md:w-[600px] w-full h-[102px] rounded-[17px] shadow-lg  md:mr-12">
-                            <img src="{{ asset('images/Graph square.svg') }}"alt="Icon 1"
+                        <div class="p-4 flex items-center md:w-[600px] w-full h-[102px] rounded-[17px] shadow-lg  md:mr-12"
+                            style="background:linear-gradient(90deg, rgba(54, 89, 111, 0.20) 46%, rgba(255, 255, 255, 0.20) 100%);">
+                            <img src="{{ asset('images/Graph square.svg') }}" alt="Icon 1"
                                 class="md:w-[59px] h-[59px]  mr-3">
                             <p class="text-white  max-lg:text-sm">Rekapitulasi pendapatan, pengeluaran, dan saldo
                                 otomatis.</p>
@@ -138,9 +179,10 @@
                     <!-- Fitur 2 -->
                     <div class="flex items-start">
                         <div class="text-4xl font-bold text-gray-300 opacity-50 pt-8 mr-10 max-lg:hidden">2</div>
-                        <div
-                            class="bg-gradient-to-r from-[#2c506699] to-[#d4d4d499] p-4 flex items-center md:w-[600px] h-[102px] rounded-[17px] shadow-lg md:ml-12">
-                            <img src="{{ asset('images/Report.svg') }}" alt="Icon 2" class=" mr-3 w-[59px] h-[59px] ">
+                        <div class=" p-4 flex items-center md:w-[600px] h-[102px] rounded-[17px] shadow-lg md:ml-12"
+                            style="background:linear-gradient(90deg, rgba(54, 89, 111, 0.20) 46%, rgba(255, 255, 255, 0.20) 100%);">
+                            <img src="{{ asset('images/Report.svg') }}" alt="Icon 2"
+                                class=" z-10 mr-3 w-[59px] h-[59px] ">
                             <p class="text-white max-lg:text-sm">Laporan kas mingguan dengan status pembayaran tiap
                                 anggota.</p>
                         </div>
@@ -148,8 +190,8 @@
 
                     <!-- Fitur 3 -->
                     <div class="flex items-start">
-                        <div
-                            class="bg-gradient-to-r from-[#2c506699] to-[#d4d4d499] p-4 flex items-center md:w-[600px] w-full h-[102px] rounded-[17px] shadow-lg md:mr-12">
+                        <div class="p-4 flex items-center md:w-[600px] w-full h-[102px] rounded-[17px] shadow-lg md:mr-12"
+                            style="background:linear-gradient(90deg, rgba(54, 89, 111, 0.20) 46%, rgba(255, 255, 255, 0.20) 100%);">
                             <img src="{{ asset('images/Fi Br Time Check.svg') }}" alt="Icon 3"
                                 class="w-[59px] h-[59px]  mr-3">
                             <p class="text-white max-lg:text-sm ">Akses kapan saja untuk laporan keuangan yang rapi dan
@@ -161,7 +203,7 @@
                 </div>
 
                 <!-- Kolom Kanan: Ilustrasi Besar -->
-                <div class="flex justify-end md:w-1/2 max-lg:hidden w-full items-center">
+                <div class="flex justify-end md:w-1/2 z-10 max-lg:hidden w-full items-center">
                     <div class="block">
                         <div class="flex justify-end relative top-20 right-16">
                             <div class="">
@@ -177,26 +219,24 @@
             </div>
     </section>
 
-    <!--how section -->
-    <section class="py-20 pr-8 max-lg:pr-6 max-lg:py-10 max-lg:px-6" id="howitworks">
+    <!--how  it work section -->
+    <section class="py-0 pr-8 max-lg:pr-6 relative max-lg:py-10 max-lg:px-6" id="howitworks">
+        <div class="absolute left-0 -z-0 top-28 max-lg:hidden"
+            style="background: #024CAA;filter: blur(242.35000610351562px); width: 676px;height: 247px;flex-shrink: 0;">
+        </div>
         <div class="min-h-screen text-white max-lg:text-center">
-            <!-- Header -->
             <div class="text-center mb-8 flex  justify-center items-center">
                 <div class="relative inline-flex flex-col items-center mb-4 ">
                     <h1 class="text-2xl font-bold">How <span class="text-[#f6a935]">fin</span>Track works</h1>
                     <div class="w-full mt-1 h-2 bg-white rounded-full"></div>
                 </div>
             </div>
-
-
-            <!-- Konten Utama -->
             <div class="flex gap-4 max-md:block max-md:space-y-8">
-                <!-- Sisi Kiri: Ilustrasi Dashboard -->
-                <div class="w-full md:w-2/3 flex justify-center">
-                    <img src="{{ asset('images/mockup how.png') }}" alt="Dashboard Illustration" class=" mr-48px">
+                <div class="w-full md:w-2/3 z-10 flex justify-center">
+                    <img src="{{ asset('images/laptop.png') }}" alt="" class="max-lg:block hidden">
+                    <img src="{{ asset('images/mockup how.png') }}" alt="Dashboard Illustration"
+                        class=" max-lg:hidden mr-48px">
                 </div>
-
-                <!-- Sisi Kanan: Deskripsi Fitur -->
                 <div class="w-full md:w-3/4 space-y-12 mr-12">
                     <!-- Bagian Laporan Keuangan -->
                     <div class="max-lg:flex-col">
@@ -207,7 +247,7 @@
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div
-                                class="bg-[#3c4a60] bg-opacity-90 p-4 rounded-lg rounded-br-none shadow-md text-right max-lg:flex-col max-lg:rounded-lg">
+                                class="bg-[#3c4a60] bg-opacity-90 p-4 max-lg:text-center rounded-lg rounded-br-none shadow-md text-right max-lg:flex-col max-lg:rounded-lg">
                                 <h3 class="font-semibold mb-2">Akses Menu Laporan Keuangan</h3>
                                 <p class="text-xs text-gray-200">Pilih menu Laporan Keuangan di sidebar untuk diarahkan
                                     ke halaman laporan keuangan.</p>
@@ -275,8 +315,11 @@
     </section>
 
     <!-- Team Section -->
-    <section class="py-20 px-8 max-lg:px-6" id="team">
-        <div class="">
+    <section class="py-10 px-8 max-lg:px-6 relative" id="team">
+        <div class="absolute right-0 -bottom-16 -z-0 max-lg:hidden"
+            style="width: 342px;height: 409.556px;flex-shrink: 0;background: #024CAA;filter: blur(242.35000610351562px);">
+        </div>
+        <div class="z-10">
             <!-- Konten Utama -->
             <div class="w-full">
                 <!-- Judul Bagian -->
@@ -292,7 +335,7 @@
 
                 <!-- Konten Utama: Card Tim -->
                 <div
-                    class="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8 ">
+                    class="flex flex-col z-10 md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8 ">
                     <!-- Card Tim 1 -->
                     <div class="bg-[#3c4a60] p-6 rounded-xl  flex items-center space-x-4 shadow-lg max-lg:flex-col ">
                         <div class="md:w-1/2 mt-10 md:mt-0  w-248 h-231 max-lg:mb-2">
@@ -302,13 +345,15 @@
                         <div class="text-left max-lg:pt-2 max-lg:text-center">
                             <h3 class="text-lg font-semibold text-white">Alif Essa Nurcahyani</h3>
                             <p class="text-sm text-blue-300">alifessanurcahyani@gmail.com</p>
+                            <p class="text-sm text-gray-300">012021070003</p>
                             <p class="text-sm text-gray-300">Front-End Developer</p>
                             <p class="text-sm text-gray-300">S1 Informatika</p>
                         </div>
                     </div>
 
                     <!-- Card Tim 2 -->
-                    <div class="bg-[#3c4a60] p-6 rounded-xl  flex items-center space-x-4 shadow-lg max-lg:flex-col">
+                    <div
+                        class="bg-[#3c4a60] p-6 z-10 rounded-xl  flex items-center space-x-4 shadow-lg max-lg:flex-col">
                         <div class="md:w-1/2 mt-10 md:mt-0  w-248 h-231">
                             <img src="{{ asset('images/bila.jpg') }}" alt="Illustration"
                                 class="w-[190px] h-[231px] rounded-xl">
@@ -316,7 +361,8 @@
                         <div class="text-left max-lg:pt-2 max-lg:text-center">
                             <h3 class="text-lg font-semibold text-white">Fathiya Salsabila</h3>
                             <p class="text-sm text-blue-300">salsabilafathiya7@gmail.com</p>
-                            <p class="text-sm text-gray-300">Mobile development enthusiast</p>
+                            <p class="text-sm text-gray-300">012021070007</p>
+                            <p class="text-sm text-gray-300">Mobile developer Enthusiast</p>
                             <p class="text-sm text-gray-300">S1 Informatika</p>
                         </div>
                     </div>
@@ -325,11 +371,10 @@
 
 
         </div>
-
     </section>
     <section>
         <!-- Kotak Footer dengan Copyright -->
-        <div class="bg-[#3c4a60] w-full  text-center p-10 mt-12 mb-0 ">
+        <div class="bg-[#3c4a60] w-full z-10  text-center py-4 mb-0 ">
             <p class="text-xl font-semibold text-gray-400 max-lg:text-sm">
                 © Copyright powered by <span class="text-orange-400">fin</span>Track
             </p>
