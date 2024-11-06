@@ -1,5 +1,12 @@
+<button id="sidebar-toggle"  class="fixed top-4 right-4 z-50 p-2 bg-[#1A2B3C] text-white rounded-md sm:hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+        viewBox="0 0 448 512">
+        <path
+            d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+    </svg>
+</button>
 <aside id="logo-sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white bg-opacity-5 rounded-r-3xl sm:translate-x-0"
+    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white max-lg:bg-opacity-85 max-lg:bg-[#1A2B3C] bg-opacity-5 rounded-r-3xl sm:translate-x-0"
     aria-label="Sidebar">
     <div class="h-full px-4 pt-24 sm:px-6 lg:px-8 pb-4 overflow-y-auto ">
         <ul class="space-y-6 font-medium">
@@ -113,8 +120,15 @@
             </li>
         </ul>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.js"
-        integrity="sha512-BJ/5sR2hFxQTKin/55JQCcMTObShDBAmVjL/3NR/MVcrhyOazJjAgvROem03+HYyGw16SVdSfoWCFGr9syxAKA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        const sidebar = document.getElementById('logo-sidebar');
+        const toggleButton = document.getElementById('sidebar-toggle');
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+        });
+    </script>
+
 
 </aside>
