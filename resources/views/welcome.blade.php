@@ -9,9 +9,10 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" rel="stylesheet">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -911,46 +912,52 @@
 <body class="relative bg-[#202239] text-white font-sans">
     <header class="fixed top-0 w-full z-10">
         <div class="container mx-auto flex justify-between items-center p-4 bg-white/10 rounded-[50px] mt-3 md:px-8">
-          <!-- Logo -->
-          <div class="text-2xl font-bold">
-            <span class="text-orange-400">fin</span>Track
-          </div>
-      
-          <!-- Hamburger Menu Icon -->
-          <button id="menu-btn" class="md:hidden focus:outline-none" onclick="toggleMenu()">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-          </button>
-      
-          <!-- Navigation Menu and Buttons for Desktop -->
-          <div id="menu" class="hidden h-1/2 fixed inset-20 bg-black bg-opacity-80 md:bg-opacity-0 md:relative md:flex md:inset-auto md:bg-transparent flex-col md:flex-row md:items-center md:space-x-6 p-8 md:p-0">
-            <nav class="flex flex-col md:flex-row md:items-center md:space-x-6 space-y-4 md:space-y-0 text-center">
-              <a href="#home" class="text-white hover:text-blue-300">Home</a>
-              <a href="#about" class="text-white hover:text-blue-300">About</a>
-              <a href="#howitworks" class="text-white hover:text-blue-300">How it works</a>
-              <a href="#team" class="text-white hover:text-blue-300">Our team</a>
-            </nav>
-            
-            <!-- Buttons (will also be in the dropdown on mobile) -->
-            <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 mt-4 md:mt-0 text-center max-lg:w-full">
-              <button class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 rounded-[35px] border-2 border-[#5a98e8] max-lg:w-full">Login</button>
-              <button class="w-[130px] h-[45.25px] bg-[#5a98e8] rounded-[59px] border border-[#202239] max-lg:w-full"">Register</button>
+            <!-- Logo -->
+            <div class="text-2xl font-bold">
+                <span class="text-orange-400">fin</span>Track
             </div>
-          </div>
+
+            <!-- Hamburger Menu Icon -->
+            <button id="menu-btn" class="md:hidden focus:outline-none" onclick="toggleMenu()">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
+            </button>
+
+            <!-- Navigation Menu and Buttons for Desktop -->
+            <div id="menu"
+                class="hidden h-1/2 fixed inset-20 bg-black bg-opacity-80 md:bg-opacity-0 md:relative md:flex md:inset-auto md:bg-transparent flex-col md:flex-row md:items-center md:space-x-6 p-8 md:p-0">
+                <nav class="flex flex-col md:flex-row md:items-center md:space-x-6 space-y-4 md:space-y-0 text-center">
+                    <a href="#home" class="text-white hover:text-blue-300">Home</a>
+                    <a href="#about" class="text-white hover:text-blue-300">About</a>
+                    <a href="#howitworks" class="text-white hover:text-blue-300">How it works</a>
+                    <a href="#team" class="text-white hover:text-blue-300">Our team</a>
+                </nav>
+
+                <!-- Buttons (will also be in the dropdown on mobile) -->
+                <div
+                    class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 mt-4 md:mt-0 text-center max-lg:w-full">
+                    <button
+                        class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 rounded-[35px] border-2 border-[#5a98e8] max-lg:w-full">Login</button>
+                    <button
+                        class="w-[130px] h-[45.25px] bg-[#5a98e8] rounded-[59px] border border-[#202239] max-lg:w-full"">Register</button>
+                </div>
+            </div>
         </div>
-    
+
     </header>
-      
+
     <script>
         function toggleMenu() {
-          const menu = document.getElementById('menu');
-          menu.classList.toggle('hidden');
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('hidden');
         }
     </script>
 
-    
-    
+
+
 
     <!-- Hero Section -->
     <section class="px-8 max-lg:px-6 pt-12 max-lg:pt-20" id="home">
@@ -1002,14 +1009,14 @@
                 </div>
                 <div>
 
-                    <p
-                        class="md:w-[667px] text-left max-lg:text-justify text-xl max-lg:text-sm font-medium space-x-1 ">
+                    <p class="md:w-[667px] text-left max-lg:text-justify text-xl max-lg:text-sm font-medium space-x-1 ">
                         <span>Fintrack adalah platform praktis
                             buat bantuin</span><span class="text-[#EC8305]">komunitas</span><span
                             style="text-white text-2xl font-semibold font-['Poppins']"> atau </span><span
                             class="text-[#EC8305]">komunitas</span><span> dalam mencatat dan memantau transaksi keuangan
                             dengan mudah dan teratur. Fintrack juga bantu catat semua jenis laporan keuangan lengkap
-                            dengan bukti transaksi fisik biar semuanya transparan dan gampang dilacak.</span></p>
+                            dengan bukti transaksi fisik biar semuanya transparan dan gampang dilacak.</span>
+                    </p>
                 </div>
             </div>
 
@@ -1023,7 +1030,8 @@
                             class="bg-gradient-to-r from-[#2c506699] to-[#d4d4d499] p-4 flex items-center md:w-[600px] w-full h-[102px] rounded-[17px] shadow-lg  md:mr-12">
                             <img src="{{ asset('images/Graph square.svg') }}"alt="Icon 1"
                                 class="md:w-[59px] h-[59px]  mr-3">
-                            <p class="text-white  max-lg:text-sm">Rekapitulasi pendapatan, pengeluaran, dan saldo otomatis.</p>
+                            <p class="text-white  max-lg:text-sm">Rekapitulasi pendapatan, pengeluaran, dan saldo
+                                otomatis.</p>
                         </div>
                         <div class="text-4xl font-bold text-gray-300 opacity-50 pt-8 ml-10 max-lg:hidden">1</div>
                     </div>
@@ -1034,7 +1042,8 @@
                         <div
                             class="bg-gradient-to-r from-[#2c506699] to-[#d4d4d499] p-4 flex items-center md:w-[600px] h-[102px] rounded-[17px] shadow-lg md:ml-12">
                             <img src="{{ asset('images/Report.svg') }}" alt="Icon 2" class=" mr-3 w-[59px] h-[59px] ">
-                            <p class="text-white max-lg:text-sm">Laporan kas mingguan dengan status pembayaran tiap anggota.</p>
+                            <p class="text-white max-lg:text-sm">Laporan kas mingguan dengan status pembayaran tiap
+                                anggota.</p>
                         </div>
                     </div>
 
@@ -1044,7 +1053,8 @@
                             class="bg-gradient-to-r from-[#2c506699] to-[#d4d4d499] p-4 flex items-center md:w-[600px] w-full h-[102px] rounded-[17px] shadow-lg md:mr-12">
                             <img src="{{ asset('images/Fi Br Time Check.svg') }}" alt="Icon 3"
                                 class="w-[59px] h-[59px]  mr-3">
-                            <p class="text-white max-lg:text-sm ">Akses kapan saja untuk laporan keuangan yang rapi dan terorganisir.
+                            <p class="text-white max-lg:text-sm ">Akses kapan saja untuk laporan keuangan yang rapi dan
+                                terorganisir.
                             </p>
                         </div>
                         <div class="text-4xl font-bold text-gray-300 opacity-50 pt-8 ml-10 max-lg:hidden">3</div>
@@ -1091,7 +1101,8 @@
                 <div class="w-full md:w-3/4 space-y-12 mr-12">
                     <!-- Bagian Laporan Keuangan -->
                     <div class="max-lg:flex-col">
-                        <div class="relative inline-flex flex-col items-center md:ml-72 mb-4 max-lg:text-center max-lg:flex-col">
+                        <div
+                            class="relative inline-flex flex-col items-center md:ml-72 mb-4 max-lg:text-center max-lg:flex-col">
                             <h2 class="text-xl font-semibold text-gray-300 ">Laporan keuangan</h2>
                             <div class="w-full mt-0 h-2 bg-orange-400 rounded-full"></div>
                         </div>
@@ -1102,7 +1113,8 @@
                                 <p class="text-xs text-gray-200">Pilih menu Laporan Keuangan di sidebar untuk diarahkan
                                     ke halaman laporan keuangan.</p>
                             </div>
-                            <div class="bg-[#3c4a60] bg-opacity-90 p-4 rounded-lg rounded-bl-none shadow-md max-lg:flex-col max-lg:rounded-lg">
+                            <div
+                                class="bg-[#3c4a60] bg-opacity-90 p-4 rounded-lg rounded-bl-none shadow-md max-lg:flex-col max-lg:rounded-lg">
                                 <h3 class="font-semibold mb-2">Menambah Nama Laporan Keuangan</h3>
                                 <p class="text-xs text-gray-200">Di halaman ini, Anda bisa menambah banyak nama laporan
                                     keuangan sesuai kebutuhan.</p>
@@ -1113,7 +1125,8 @@
                                 <p class="text-xs text-gray-200">Klik card laporan keuangan yang sudah dibuat untuk
                                     masuk ke detail laporan keuangan.</p>
                             </div>
-                            <div class="bg-[#3c4a60] bg-opacity-90 p-4 rounded-lg rounded-tl-none shadow-md max-lg:text-center max-lg:rounded-lg">
+                            <div
+                                class="bg-[#3c4a60] bg-opacity-90 p-4 rounded-lg rounded-tl-none shadow-md max-lg:text-center max-lg:rounded-lg">
                                 <h3 class="font-semibold mb-2">Ringkasan Pemasukan, Pengeluaran, dan Saldo</h3>
                                 <p class="text-xs text-gray-200">Anda dapat melihat ringkasan data pemasukan,
                                     pengeluaran, serta sisa saldo.</p>
@@ -1135,7 +1148,8 @@
                                     ke halaman yang serupa dengan menu laporan keuangan, khusus untuk laporan keuangan
                                     kas.</p>
                             </div>
-                            <div class="bg-[#3c4a60] bg-opacity-90 p-4 rounded-lg rounded-bl-none shadow-md max-lg:text-center max-lg:rounded-lg">
+                            <div
+                                class="bg-[#3c4a60] bg-opacity-90 p-4 rounded-lg rounded-bl-none shadow-md max-lg:text-center max-lg:rounded-lg">
                                 <h3 class="font-semibold mb-2">Menambah Laporan Keuangan Kas</h3>
                                 <p class="text-xs text-gray-200">Anda dapat menambahkan beberapa nama laporan keuangan
                                     kas beserta jumlah uang kas mingguan.</p>
@@ -1178,7 +1192,8 @@
                 </div>
 
                 <!-- Konten Utama: Card Tim -->
-                <div class="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8 ">
+                <div
+                    class="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8 ">
                     <!-- Card Tim 1 -->
                     <div class="bg-[#3c4a60] p-6 rounded-xl  flex items-center space-x-4 shadow-lg max-lg:flex-col ">
                         <div class="md:w-1/2 mt-10 md:mt-0  w-248 h-231 max-lg:mb-2">
