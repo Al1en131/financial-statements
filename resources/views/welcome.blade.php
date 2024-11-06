@@ -31,7 +31,7 @@
             </div>
             <!-- Navigation Menu and Buttons for Desktop -->
             <div id="menu"
-                class="hidden fixed inset-0 bg-black bg-opacity-80 md:bg-opacity-0 md:relative md:flex md:inset-auto md:bg-transparent flex-col md:flex-row md:items-center md:justify-center md:space-x-6 p-8 md:p-0">
+                class="hidden fixed inset-0 bg-black gap-28 bg-opacity-80 md:bg-opacity-0 md:relative md:flex md:inset-auto md:bg-transparent flex-col md:flex-row md:items-center md:justify-center md:space-x-6 p-8 md:p-0">
                 <nav class="flex flex-col md:flex-row md:items-center md:space-x-6 space-y-4 md:space-y-0 text-center">
                     <a href="#home" class="text-white hover:text-blue-300">Home</a>
                     <a href="#about" class="text-white hover:text-blue-300">About</a>
