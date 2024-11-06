@@ -17,7 +17,7 @@
 </head>
 
 <body class="relative bg-[#202239] antialiased text-white font-sans">
-    <header class="fixed top-0 w-full z-10">
+    <header class="fixed top-0 w-full z-10 px-8 max-lg:px-6">
         <div class="container mx-auto flex justify-between items-center p-4 bg-white/10 rounded-[50px] mt-3 md:px-8">
             <!-- Logo -->
             <div class="text-2xl font-bold">
