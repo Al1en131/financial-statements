@@ -10,12 +10,10 @@ class CashFundController extends Controller
 {
     public function index()
     {
-        // Check if user is authenticated
         if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        // Retrieve only the cash funds of the authenticated user
         $cashFunds = CashFund::where('user_id', Auth::id())->get();
 
         return view('cashfunds.index', compact('cashFunds'));
@@ -27,7 +25,6 @@ class CashFundController extends Controller
             'cash_fund_name' => 'required|string|max:255',
         ]);
 
-        // Create cash fund only if the user is authenticated
         if (Auth::check()) {
             CashFund::create([
                 'user_id' => Auth::id(),

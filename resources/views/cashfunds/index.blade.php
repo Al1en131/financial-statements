@@ -111,7 +111,6 @@
                 @endforeach
             @endif
         </div>
-        <!-- Modal Edit -->
         <div id="editModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
             <div class="modal-overlay fixed inset-0 bg-black opacity-50"></div>
             <div class="modal-content bg-white w-96 bg-opacity-75 max-lg:mx-2 rounded-lg px-10 py-12 z-10">
@@ -159,7 +158,7 @@
 
         function openEditModal(id, name) {
             editCashFundName.value = name;
-            editForm.action = `/cashfunds/${id}`; // Pastikan sesuai dengan route edit
+            editForm.action = `/cashfunds/${id}`;
             editModal.classList.remove('hidden');
         }
 
@@ -190,7 +189,6 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Jika dikonfirmasi, submit form delete
                     document.getElementById(`delete-form-${id}`).submit();
                 }
             });

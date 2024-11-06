@@ -21,11 +21,11 @@
                                             function formatUang1($jumlah)
                                             {
                                                 if ($jumlah >= 1000000) {
-                                                    return 'Rp. ' . number_format($jumlah / 1000000, 1, ',', '.') . 'M'; // Format dalam juta
+                                                    return 'Rp. ' . number_format($jumlah / 1000000, 1, ',', '.') . 'M';
                                                 } elseif ($jumlah >= 1000) {
-                                                    return 'Rp. ' . number_format($jumlah / 1000, 1, ',', '.') . 'K'; // Format dalam ribu
+                                                    return 'Rp. ' . number_format($jumlah / 1000, 1, ',', '.') . 'K';
                                                 } else {
-                                                    return 'Rp. ' . number_format($jumlah, 0, ',', '.'); // Format asli untuk kurang dari 1.000
+                                                    return 'Rp. ' . number_format($jumlah, 0, ',', '.');
                                                 }
                                             }
                                         @endphp
@@ -48,11 +48,11 @@
                                             function formatUang2($jumlah)
                                             {
                                                 if ($jumlah >= 1000000) {
-                                                    return 'Rp. ' . number_format($jumlah / 1000000, 1, ',', '.') . 'M'; // Format dalam juta
+                                                    return 'Rp. ' . number_format($jumlah / 1000000, 1, ',', '.') . 'M';
                                                 } elseif ($jumlah >= 1000) {
-                                                    return 'Rp. ' . number_format($jumlah / 1000, 1, ',', '.') . 'K'; // Format dalam ribu
+                                                    return 'Rp. ' . number_format($jumlah / 1000, 1, ',', '.') . 'K';
                                                 } else {
-                                                    return 'Rp. ' . number_format($jumlah, 0, ',', '.'); // Format asli untuk kurang dari 1.000
+                                                    return 'Rp. ' . number_format($jumlah, 0, ',', '.');
                                                 }
                                             }
                                         @endphp
@@ -75,11 +75,11 @@
                                             function formatUang3($jumlah)
                                             {
                                                 if ($jumlah >= 1000000) {
-                                                    return 'Rp. ' . number_format($jumlah / 1000000, 1, ',', '.') . 'M'; // Format dalam juta
+                                                    return 'Rp. ' . number_format($jumlah / 1000000, 1, ',', '.') . 'M';
                                                 } elseif ($jumlah >= 1000) {
-                                                    return 'Rp. ' . number_format($jumlah / 1000, 1, ',', '.') . 'K'; // Format dalam ribu
+                                                    return 'Rp. ' . number_format($jumlah / 1000, 1, ',', '.') . 'K';
                                                 } else {
-                                                    return 'Rp. ' . number_format($jumlah, 0, ',', '.'); // Format asli untuk kurang dari 1.000
+                                                    return 'Rp. ' . number_format($jumlah, 0, ',', '.');
                                                 }
                                             }
                                         @endphp
@@ -140,7 +140,7 @@
                             </clipPath>
                         </defs>
                     </svg></span>
-                    Tambah
+                Tambah
                 Transaksi </button>
         </div>
         <div class="bg-white rounded-2xl bg-opacity-10 px-8 py-6">

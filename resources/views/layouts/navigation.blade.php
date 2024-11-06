@@ -1,9 +1,7 @@
 <nav x-data="{ open: false }" class=" fixed top-0 z-20 w-full">
-    <!-- Primary Navigation Menu -->
     <div class="mx-auto px-6 sm:px-6 lg:pl-12 lg:pr-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="">
                         <svg width="115" height="22" viewBox="0 0 115 22" fill="none"
@@ -18,7 +16,6 @@
                     </a>
                 </div>
             </div>
-            <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -31,8 +28,6 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-
-                        <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 

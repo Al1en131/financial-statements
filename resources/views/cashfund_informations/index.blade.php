@@ -165,10 +165,9 @@
         const editModal = document.getElementById('editModal');
         const editForm = document.getElementById('editForm');
         const editCashFundDate = document.getElementById(
-            'editCashFundInformationDate'); // Ganti variabel menjadi 'editCashFundDate'
+            'editCashFundInformationDate');
         const closeEditModal = document.getElementById('closeEditModal');
 
-        // Fungsi untuk membuka modal edit
         function openEditModal(id, date, cashDetail) {
             const editModal = document.getElementById('editModal');
             const editForm = document.getElementById('editForm');
@@ -180,19 +179,16 @@
             editModal.classList.remove('hidden');
         }
 
-        // Fungsi untuk menutup modal edit
         closeEditModal.addEventListener('click', () => {
-            editModal.classList.add('hidden'); // Sembunyikan modal
+            editModal.classList.add('hidden');
         });
 
-        // Menutup modal jika pengguna mengklik area di luar konten modal
         editModal.addEventListener('click', (event) => {
             if (event.target === editModal) {
                 editModal.classList.add('hidden');
             }
         });
 
-        // Fungsi untuk membuka/menutup dropdown
         function toggleDropdown(id) {
             const dropdown = document.getElementById(`dropdown-${id}`);
             dropdown.classList.toggle('hidden');
@@ -210,7 +206,6 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Jika dikonfirmasi, submit form delete
                     document.getElementById(`delete-form-${id}`).submit();
                 }
             });

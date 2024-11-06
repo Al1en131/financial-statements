@@ -65,22 +65,18 @@ class FinancialStatementController extends Controller
 
         $statement = FinancialStatement::findOrFail($id);
         $statement->information = $request->input('information');
-        $statement->debit = $request->input('debit', $statement->debit); // Use previous value if not provided
-        $statement->credit = $request->input('credit', $statement->credit); // Use previous value if not provided
-        $statement->date = $request->input('date'); // Update date
+        $statement->debit = $request->input('debit', $statement->debit); 
+        $statement->credit = $request->input('credit', $statement->credit); 
+        $statement->date = $request->input('date'); 
 
-        // Update balance based on new debit and credit values
         $lastBalance = $statement->balance;
         $statement->balance = $lastBalance + $statement->debit - $statement->credit;
 
-        // Handle image update if a new image is uploaded
         if ($request->hasFile('image')) {
-            // Delete old image if it exists
             if ($statement->image) {
                 Storage::delete('public/image/' . $statement->image);
             }
 
-            // Store new image
             $image = $request->file('image');
             $image->storeAs('public/image', $image->hashName());
             $statement->image = $image->hashName();
@@ -102,7 +98,6 @@ class FinancialStatementController extends Controller
 
     protected function updateBalance($financialId)
     {
-        // Ambil semua pernyataan keuangan untuk financial_id tertentu
         $statements = FinancialStatement::where('financial_id', $financialId)->get();
 
         $totalDebit = 0;
@@ -111,8 +106,8 @@ class FinancialStatementController extends Controller
         foreach ($statements as $statement) {
             $totalDebit += $statement->debit;
             $totalCredit += $statement->credit;
-            $statement->balance = $totalDebit - $totalCredit; // Hitung balance
-            $statement->save(); // Simpan perubahan
+            $statement->balance = $totalDebit - $totalCredit; 
+            $statement->save(); 
         }
     }
 }

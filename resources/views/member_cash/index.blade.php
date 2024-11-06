@@ -10,7 +10,8 @@
                         <h1 class="text-white font-bold text-3xl text-center mb-3">
                             {{ $cashFundInformation->date ? \Carbon\Carbon::parse($cashFundInformation->date)->format('F Y') : 'Invalid Date' }}
                         </h1>
-                        <p class="text-base px-8 max-lg:px-0 text-center mb-7">Kalo tamu <span class="text-[#EC8305]">wajib
+                        <p class="text-base px-8 max-lg:px-0 text-center mb-7">Kalo tamu <span
+                                class="text-[#EC8305]">wajib
                                 lapor</span>, kalo
                             bendahara wajib apa? ya sama, <span class="text-[#EC8305]">wajib lapor</span> juga
                             xixixi</p>
@@ -182,8 +183,6 @@
                                 <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                                     {{ $member->member_name }}
                                 </th>
-
-                                <!-- Form untuk status minggu -->
                                 <form
                                     action="{{ route('cashfund_informations.member_cash.update', [$cashFundInformation->id, $member->id]) }}"
                                     method="POST" id="form-status-{{ $member->id }}">
@@ -281,7 +280,6 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Jika pengguna mengkonfirmasi, kirim request DELETE
                     const form = document.createElement('form');
                     form.method = 'POST';
                     form.action = `{{ url('cashfund_informations') }}/${cashFundId}/member_cash/${memberId}`;
