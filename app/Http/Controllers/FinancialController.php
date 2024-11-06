@@ -39,7 +39,7 @@ class FinancialController extends Controller
             'financial_name' => $request->financial_name,
         ]);
 
-        return redirect()->route('financial.index')->with('success', 'Financial category created successfully.');
+        return redirect()->route('financial.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     public function showStatements($financialId)
@@ -66,7 +66,7 @@ class FinancialController extends Controller
         $financial->financial_name = $request->input('financial_name');
         $financial->save();
 
-        return response()->json(['message' => 'Financial category updated successfully.']);
+        return response()->json(['message' => 'Data berhasil diupdate']);
     }
 
 
@@ -100,7 +100,7 @@ class FinancialController extends Controller
             'information' => $request->information,
         ]);
 
-        return redirect()->route('financial.showStatements', $financialId)->with('success', 'Financial statement added successfully.');
+        return redirect()->route('financial.showStatements', $financialId)->with('success', 'Data berhasil ditambahkan');
     }
 
     public function destroy($id)
@@ -108,6 +108,6 @@ class FinancialController extends Controller
         $financial = Financial::findOrFail($id);
         $financial->delete();
 
-        return redirect()->route('financial.index')->with('success', 'Financial category deleted successfully.');
+        return redirect()->route('financial.index')->with('success', 'Data Berhasil dihapus');
     }
 }

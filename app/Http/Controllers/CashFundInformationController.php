@@ -38,18 +38,18 @@ class CashFundInformationController extends Controller
     {
         $request->validate([
             'date' => 'required|date',
-            'cash_detail' => 'required|numeric|min:0', 
+            'cash_detail' => 'required|numeric|min:0',
         ]);
 
         $cashFundInformation = CashFundInformation::findOrFail($id);
 
         $cashFundInformation->date = $request->date;
-        $cashFundInformation->cash_detail = $request->cash_detail; 
+        $cashFundInformation->cash_detail = $request->cash_detail;
 
         $cashFundInformation->save();
 
         return redirect()->route('cashfunds.informations.index', $cashFundInformation->cash_fund_id)
-            ->with('success', 'Cash Fund information updated successfully');
+            ->with('success', 'Data berhasil diupdate');
     }
 
 
@@ -60,6 +60,6 @@ class CashFundInformationController extends Controller
         $cashFundInformation->delete();
 
         return redirect()->route('cashfunds.informations.index', $cashFundId)
-            ->with('success', 'Cash Fund information deleted successfully');
+            ->with('success', 'Data Berhasil dihapus');
     }
 }

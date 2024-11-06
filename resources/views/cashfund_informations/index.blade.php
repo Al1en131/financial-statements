@@ -16,6 +16,47 @@
                 </div>
             </div>
         </div>
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-white bg-opacity-50"
+                    role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <div>{{ $error }}</div>
+                    <button type="button" class="ml-auto text-black hover:text-gray-800"
+                        onclick="this.parentElement.style.display='none'">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 7.586l4.293-4.293a1 1 0 111.414 1.414L11.414 9l4.293 4.293a1 1 0 01-1.414 1.414L10 10.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 9 4.293 4.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            @endforeach
+        @endif
+
+        @if (session('success'))
+            <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-white bg-opacity-50"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <div>{{ session('success') }}</div>
+                <button type="button" class="ml-auto text-black hover:text-gray-800"
+                    onclick="this.parentElement.style.display='none'">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 7.586l4.293-4.293a1 1 0 111.414 1.414L11.414 9l4.293 4.293a1 1 0 01-1.414 1.414L10 10.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 9 4.293 4.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        @endif
         <div class="flex justify-between max-lg:justify-center max-lg:block max-lg:space-y-4 mb-8 pb-4">
             <a href="{{ route('cashfunds.index') }}" class="text-white flex gap-2 items-center"><svg
                     xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -50,7 +91,7 @@
                             <input type="date" name="date" required
                                 class="border-2 rounded border-[#20374D] p-2 mb-4 focus-outline focus:border-[#20374D] focus:ring-[#20374D] w-full">
                             <input type="number" name="cash_detail" required step="0.01" min="0"
-                                placeholder="Cash Amount"
+                                placeholder="Jumlah uang kas per minggu"
                                 class="border-2 rounded border-[#20374D] p-2 mb-4 focus-outline focus:border-[#20374D] focus:ring-[#20374D] w-full">
                             <div class="flex justify-end">
                                 <button type="button" id="closeModal"

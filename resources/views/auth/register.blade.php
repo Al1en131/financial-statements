@@ -49,9 +49,9 @@
 
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
-                    <div class="text-right text-gray-400 py-2 hover:underline  hover:text-gray-100">
+                    <div class="text-center text-gray-400 py-2 hover:underline  hover:text-gray-100">
                         <a class="underline text-sm" href="{{ route('login') }}">
-                            {{ __('Apakah sudah pernah mendaftar?') }}
+                            {{ __('Apakah Kamu sudah terdaftar?') }}
                         </a>
 
 

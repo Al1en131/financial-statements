@@ -16,10 +16,51 @@
                             bendahara wajib apa? ya sama, <span class="text-[#EC8305]">wajib lapor</span> juga
                             xixixi</p>
                         <div class="flex gap-4 max-lg:block max-lg:space-y-4 w-full">
+                            @php
+                                $totalPaid = $members
+                                    ->filter(function ($member) {
+                                        return $member->week_1_status &&
+                                            $member->week_2_status &&
+                                            $member->week_3_status &&
+                                            $member->week_4_status;
+                                    })
+                                    ->count();
+
+                                $totalUnpaid = $members->count() - $totalPaid;
+                            @endphp
                             <div class="py-4 px-6 flex justify-between w-1/3 max-lg:w-full items-center gap-4 rounded-2xl"
                                 style="background: linear-gradient(269deg, rgba(233, 167, 167, 0.55) 0.98%, rgba(226, 89, 89, 0.55) 104.36%);">
                                 <div class="flex flex-col">
                                     <h1 class="text-white text-lg">
+                                        {{ $totalUnpaid }}
+                                    </h1>
+                                    <p class="text-white text-base">Belum Lunas</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" width="38"
+                                    height="38" fill="red">
+                                    <path
+                                        d="M96 64c0-17.7-14.3-32-32-32S32 46.3 32 64l0 256c0 17.7 14.3 32 32 32s32-14.3 32-32L96 64zM64 480a40 40 0 1 0 0-80 40 40 0 1 0 0 80z" />
+                                </svg>
+                            </div>
+                            <div class="py-4 px-6 flex justify-between w-1/3 max-lg:w-full gap-4 items-center rounded-2xl"
+                                style="background: linear-gradient(270deg, rgba(167, 233, 177, 0.55) 0%, rgba(88, 228, 109, 0.55) 100%);">
+                                <div class="flex flex-col">
+                                    <h1 class="text-white text-lg">
+                                        {{ $totalPaid }}
+                                    </h1>
+                                    <p class="text-white text-base">Lunas</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="40"
+                                    height="40" fill="green">
+                                    <path
+                                        d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                                </svg>
+                            </div>
+                            <div class="py-4 px-6 flex justify-between w-1/3 max-lg:w-full gap-4 items-center rounded-2xl"
+                                style="background: linear-gradient(270deg, rgba(167, 208, 233, 0.55) 0%, rgba(63, 162, 224, 0.55) 100%);">
+                                <div class="flex flex-col">
+                                    <h1 class="text-white text-lg">
+
                                         @php
                                             function formatUang1($jumlah)
                                             {
@@ -34,50 +75,7 @@
                                         @endphp
                                         {{ formatUang1($totalCollected) }}
                                     </h1>
-                                    <p class="text-white text-base">Total Kas</p>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41"
-                                    viewBox="0 0 41 41" fill="none">
-                                    <path
-                                        d="M23.9174 16.3761L17.0841 23.2094L6.33355 12.4589L3.91797 14.8745L17.0841 28.0406L23.9174 21.2073L31.2513 28.5411L27.3341 32.4583H37.5841V22.2083L33.6669 26.1255L23.9174 16.3761Z"
-                                        fill="#FC9E2D" />
-                                </svg>
-                            </div>
-                            @php
-                                $totalPaid = $members
-                                    ->filter(function ($member) {
-                                        return $member->week_1_status &&
-                                            $member->week_2_status &&
-                                            $member->week_3_status &&
-                                            $member->week_4_status;
-                                    })
-                                    ->count();
-
-                                $totalUnpaid = $members->count() - $totalPaid;
-                            @endphp
-                            <div class="py-4 px-6 flex justify-between w-1/3 max-lg:w-full gap-4 items-center rounded-2xl"
-                                style="background: linear-gradient(270deg, rgba(167, 233, 177, 0.55) 0%, rgba(88, 228, 109, 0.55) 100%);">
-                                <div class="flex flex-col">
-                                    <h1 class="text-white text-lg">
-                                        {{ $totalUnpaid }}
-                                    </h1>
-                                    <p class="text-white text-base">Belum Lunas</p>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-                                    viewBox="0 0 40 40" fill="none">
-                                    <path
-                                        d="M16.6673 17.3567L23.3339 24.0233L32.8456 14.5117L36.6673 18.3333V8.33334H26.6673L30.4889 12.155L23.3339 19.31L16.6673 12.6433L3.82227 25.4883L6.17893 27.845L16.6673 17.3567Z"
-                                        fill="#CCFF00" />
-                                </svg>
-                            </div>
-                            <div class="py-4 px-6 flex justify-between w-1/3 max-lg:w-full gap-4 items-center rounded-2xl"
-                                style="background: linear-gradient(270deg, rgba(167, 208, 233, 0.55) 0%, rgba(63, 162, 224, 0.55) 100%);">
-                                <div class="flex flex-col">
-                                    <h1 class="text-white text-lg">
-
-                                        {{ $totalPaid }}
-                                    </h1>
-                                    <p class="text-white text-base">Lunas</p>
+                                    <p class="text-white text-base">Sisa Saldo</p>
                                 </div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
                                     viewBox="0 0 40 40" fill="none">
@@ -107,6 +105,48 @@
                 </div>
             </div>
         </div>
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-white bg-opacity-50"
+                    role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <div>{{ $error }}</div>
+                    <button type="button" class="ml-auto text-black hover:text-gray-800"
+                        onclick="this.parentElement.style.display='none'">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 7.586l4.293-4.293a1 1 0 111.414 1.414L11.414 9l4.293 4.293a1 1 0 01-1.414 1.414L10 10.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 9 4.293 4.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            @endforeach
+        @endif
+
+        @if (session('success'))
+            <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-white bg-opacity-50"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <div>{{ session('success') }}</div>
+                <button type="button" class="ml-auto text-black hover:text-gray-800"
+                    onclick="this.parentElement.style.display='none'">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 7.586l4.293-4.293a1 1 0 111.414 1.414L11.414 9l4.293 4.293a1 1 0 01-1.414 1.414L10 10.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 9 4.293 4.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        @endif
+
         <div class="flex justify-between items-center mb-4">
             <a href="{{ route('cashfunds.informations.index', $cashFund->id) }}"
                 class="text-white flex justify-between gap-2 items-center"><svg xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +157,8 @@
                 </svg>Kembali</a>
             <button onclick="openModal()"
                 class="border border-white rounded-xl text-white px-4 py-2 items-center hover:bg-white hover:bg-opacity-15 flex justify-between gap-2"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                    fill="none">
                     <g clip-path="url(#clip0_73_376)">
                         <path d="M10.0007 5.83334V14.1667M5.83398 10H14.1673" stroke="white" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" />
@@ -132,22 +173,6 @@
                     </defs>
                 </svg>Tambah</button>
         </div>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
         <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
             <div class="bg-white bg-opacity-75 rounded-lg shadow-lg px-10 max-lg:mx-2 py-12 w-96">
                 <h2 class="text-xl mb-4 text-[#20374D] font-bold">Tambah Data</h2>

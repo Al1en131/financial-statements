@@ -84,7 +84,7 @@ class FinancialStatementController extends Controller
 
         $statement->save();
 
-        return redirect()->back()->with('success', 'Financial statement updated successfully!');
+        return redirect()->back()->with('success', 'Data berhasil diupdate');
     }
 
 
@@ -93,7 +93,7 @@ class FinancialStatementController extends Controller
         $statement = FinancialStatement::findOrFail($id);
         $statement->delete();
 
-        return redirect()->back()->with('success', 'Financial statement deleted successfully!');
+        return redirect()->back()->with('success', 'Data Berhasil dihapus');
     }
 
     protected function updateBalance($financialId)

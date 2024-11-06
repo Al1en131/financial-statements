@@ -48,7 +48,7 @@ class MemberCashController extends Controller
         ]);
 
         return redirect()->route('cashfund_informations.member_cash.index', $cashFundInformationId)
-            ->with('success', 'Member added successfully!');
+            ->with('success', 'Data berhasil ditambahkan');
     }
 
     public function update(Request $request, $cashFundInformationId, $member_cash)
@@ -72,7 +72,7 @@ class MemberCashController extends Controller
         ]);
 
         return redirect()->route('cashfund_informations.member_cash.index', $cashFundInformationId)
-            ->with('success', 'Payment status updated successfully!');
+            ->with('success', 'Data berhasil diupdate');
     }
 
     public function updateName(Request $request, $cashFundInformationId, $memberId)
@@ -93,7 +93,7 @@ class MemberCashController extends Controller
         $member->save();
 
         return redirect()->route('cashfund_informations.show', $cashFundInformationId)
-            ->with('success', 'Member name updated successfully.');
+            ->with('success', 'Data berhasil diupdate');
     }
 
 
@@ -103,6 +103,6 @@ class MemberCashController extends Controller
         $member->delete();
 
         return redirect()->route('cashfund_informations.member_cash.index', $cashFundInformationId)
-            ->with('success', 'Member deleted successfully.');
+            ->with('success', 'Data Berhasil dihapus');
     }
 }
