@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="">
                         <svg width="115" height="22" viewBox="0 0 115 22" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path

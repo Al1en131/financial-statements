@@ -1,14 +1,14 @@
 <x-app-layout>
     <div class="container lg:pl-8 pl-6">
-        <div class="relative mt-6 max-lg:mt-0 mb-16">
-            <div class="absolute -top-6 left-10 max-lg:top-24 w-64 h-64 max-lg:-right-10 max-lg:w-60 max-lg:h-60">
+        <div class="relative mt-6 max-lg:mt-0 mb-16 max-lg:mb-8">
+            <div class="absolute -top-6 left-10 max-lg:hidden w-64 h-64 max-lg:-right-10 max-lg:w-60 max-lg:h-60">
                 <img src="{{ asset('/images/card-financial-2.png') }}" class="" alt="">
             </div>
             <div class="bg-white bg-opacity-5 overflow-hidden shadow-sm rounded-2xl">
                 <div class="flex justify-end">
-                    <div class="py-8 px-12 text-white">
+                    <div class="py-8 px-12 max-lg:px-4 text-white">
                         <h1 class="text-white font-bold text-3xl text-center mb-3">Laporan Keuangan</h1>
-                        <p class="text-base px-8 text-center">Kalo tamu <span class="text-[#EC8305]">wajib
+                        <p class="text-base px-8 max-lg:px-0 text-center">Kalo tamu <span class="text-[#EC8305]">wajib
                                 lapor</span>, kalo
                             bendahara wajib apa? ya sama, <span class="text-[#EC8305]">wajib lapor</span> juga
                             xixixi</p>
@@ -16,8 +16,8 @@
                 </div>
             </div>
         </div>
-        <div class="flex justify-between mb-8 pb-4 items-center">
-            <h1 class="text-xl text-white">Semua laporan kamu sudah tertata rapi <span
+        <div class="flex justify-between max-lg:block max-lg:justify-center max-lg:space-y-4 mb-8 pb-4 items-center">
+            <h1 class="text-lg text-white">Semua laporan kamu sudah tertata rapi <span
                     class="text-[#EC8305]">disini</span> </h1>
             <div>
                 <button id="openModal"
@@ -42,7 +42,7 @@
                 </button>
                 <div id="modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
                     <div class="modal-overlay fixed inset-0 bg-black opacity-50"></div>
-                    <div class="modal-content bg-white bg-opacity-75 rounded-lg px-10 py-12 z-10">
+                    <div class="modal-content bg-white bg-opacity-75 max-lg:mx-2 rounded-lg px-10 py-12 z-10">
                         <h2 class="text-xl mb-4 text-[#20374D] font-bold">Tambah Kategori Laporan Leuangan</h2>
                         <form action="{{ route('financial.store') }}" method="POST">
                             @csrf
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-3 gap-4 mb-4">
+        <div class="grid grid-cols-3 max-lg:grid-cols-1 gap-4 mb-4">
             @if ($financials->isEmpty())
                 <div class="col-span-3 text-center flex justify-center items-center text-white pb-2 pt-12">
                     <img src="{{ asset('/images/nothing-activity.png') }}" class="" alt="">
@@ -98,8 +98,11 @@
                         </div>
                         <div class="h-50 ml-4 flex w-auto flex-col justify-center text-white">
                             <a href="{{ route('financial.showStatements', $financial->id) }}"
-                                class="text-lg font-bold ">
+                                class="text-lg font-bold max-lg:hidden ">
                                 {{ Str::limit($financial->financial_name, 20) }}</a>
+                            <a href="{{ route('financial.showStatements', $financial->id) }}"
+                                class="text-lg max-lg:text-base font-bold max-lg:contents hidden ">
+                                {{ Str::limit($financial->financial_name, 15) }}</a>
                             <h4 class="">Rp
                                 @if (optional($financial->statements)->isNotEmpty())
                                     {{ number_format($financial->balance, 0, ',', '.') }}
@@ -118,7 +121,7 @@
                             </button>
 
                             <div id="dropdown-{{ $financial->id }}"
-                                class="hidden absolute left-8 top-4 mt-2 w-32 bg-white bg-opacity-40 rounded-lg shadow-lg z-20">
+                                class="hidden absolute left-8 top-4 max-lg:-left-20 mt-2 w-32 bg-white bg-opacity-40 rounded-lg shadow-lg z-20">
                                 <a onclick="openEditModal({{ $financial->id }}, '{{ $financial->financial_name }}')"
                                     class="block px-4 py-2 text-sm text-black hover:rounded-t-lg hover:bg-gray-100">Edit</a>
                                 <form id="delete-form-{{ $financial->id }}"
@@ -138,7 +141,7 @@
             role="dialog" aria-modal="true">
             <div class="flex items-center justify-center min-h-screen">
                 <div class="fixed inset-0 bg-black opacity-30"></div>
-                <div class="bg-white bg-opacity-75 z-50 rounded-lg px-10 py-12 max-w-sm mx-auto">
+                <div class="bg-white bg-opacity-75 z-50 rounded-lg px-10 max-lg:mx-2  py-12 max-w-sm mx-auto">
                     <h2 class="text-lg font-bold mb-4 text-[#20374D]" id="modal-title">Edit Kategori Laporan Keuangan
                     </h2>
                     <form id="editForm" method="POST">

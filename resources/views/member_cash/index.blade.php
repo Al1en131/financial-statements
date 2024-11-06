@@ -1,21 +1,21 @@
 <x-app-layout>
-    <div class="container sm:pl-6 lg:pl-8">
-        <div class="relative mt-6 max-lg:mt-0 mb-16">
-            <div class="absolute -top-6 left-10 max-lg:top-24 max-lg:-right-10 max-lg:w-60 max-lg:h-60">
+    <div class="container pl-6 lg:pl-8">
+        <div class="relative mt-6 max-lg:mt-0 mb-16 max-lg:mb-8">
+            <div class="absolute -top-6 left-10 max-lg:hidden max-lg:-right-10 max-lg:w-60 max-lg:h-60">
                 <img src="{{ asset('/images/icon-laporan-keuangan.png') }}" class="" alt="">
             </div>
             <div class="bg-white bg-opacity-5 overflow-hidden shadow-sm rounded-2xl">
                 <div class="flex justify-end">
-                    <div class="py-8 px-12 text-white">
+                    <div class="py-8 px-12 max-lg:px-4 text-white">
                         <h1 class="text-white font-bold text-3xl text-center mb-3">
                             {{ $cashFundInformation->date ? \Carbon\Carbon::parse($cashFundInformation->date)->format('F Y') : 'Invalid Date' }}
                         </h1>
-                        <p class="text-base px-8 text-center mb-7">Kalo tamu <span class="text-[#EC8305]">wajib
+                        <p class="text-base px-8 max-lg:px-0 text-center mb-7">Kalo tamu <span class="text-[#EC8305]">wajib
                                 lapor</span>, kalo
                             bendahara wajib apa? ya sama, <span class="text-[#EC8305]">wajib lapor</span> juga
                             xixixi</p>
-                        <div class="flex gap-4 w-full">
-                            <div class="py-4 px-6 flex justify-between w-1/3 items-center gap-4 rounded-2xl"
+                        <div class="flex gap-4 max-lg:block max-lg:space-y-4 w-full">
+                            <div class="py-4 px-6 flex justify-between w-1/3 max-lg:w-full items-center gap-4 rounded-2xl"
                                 style="background: linear-gradient(269deg, rgba(233, 167, 167, 0.55) 0.98%, rgba(226, 89, 89, 0.55) 104.36%);">
                                 <div class="flex flex-col">
                                     <h1 class="text-white text-lg">
@@ -33,7 +33,7 @@
                                         @endphp
                                         {{ formatUang1($totalCollected) }}
                                     </h1>
-                                    <p class="text-white text-base">Pengeluaran</p>
+                                    <p class="text-white text-base">Total Kas</p>
                                 </div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41"
                                     viewBox="0 0 41 41" fill="none">
@@ -54,7 +54,7 @@
 
                                 $totalUnpaid = $members->count() - $totalPaid;
                             @endphp
-                            <div class="py-4 px-6 flex justify-between w-1/3 gap-4 items-center rounded-2xl"
+                            <div class="py-4 px-6 flex justify-between w-1/3 max-lg:w-full gap-4 items-center rounded-2xl"
                                 style="background: linear-gradient(270deg, rgba(167, 233, 177, 0.55) 0%, rgba(88, 228, 109, 0.55) 100%);">
                                 <div class="flex flex-col">
                                     <h1 class="text-white text-lg">
@@ -69,7 +69,7 @@
                                         fill="#CCFF00" />
                                 </svg>
                             </div>
-                            <div class="py-4 px-6 flex justify-between w-1/3 gap-4 items-center rounded-2xl"
+                            <div class="py-4 px-6 flex justify-between w-1/3 max-lg:w-full gap-4 items-center rounded-2xl"
                                 style="background: linear-gradient(270deg, rgba(167, 208, 233, 0.55) 0%, rgba(63, 162, 224, 0.55) 100%);">
                                 <div class="flex flex-col">
                                     <h1 class="text-white text-lg">
@@ -148,8 +148,8 @@
         @endif
 
         <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-            <div class="bg-white bg-opacity-75 rounded-lg shadow-lg px-10 py-12 w-96">
-                <h2 class="text-xl mb-4 text-[#20374D] font-bold">Tambah Transaksi</h2>
+            <div class="bg-white bg-opacity-75 rounded-lg shadow-lg px-10 max-lg:mx-2 py-12 w-96">
+                <h2 class="text-xl mb-4 text-[#20374D] font-bold">Tambah Data</h2>
                 <form action="{{ route('cashfund_informations.member_cash.store', $cashFundInformation->id) }}"
                     method="POST">
                     @csrf

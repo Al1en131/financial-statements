@@ -32,8 +32,8 @@
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
                 <div>
-                    <p class="text-sm mt-2 text-gray-800">
-                        {{ __('Your email address is unverified.') }}
+                    <p class="text-sm mt-2 text-white">
+                        {{ __('Email anda belum diverifikasi.') }}
 
                         <button form="send-verification"
                             class="underline text-sm text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -43,7 +43,7 @@
 
                     @if (session('status') === 'verification-link-sent')
                         <p class="mt-2 font-medium text-sm text-green-600">
-                            {{ __('A new verification link has been sent to your email address.') }}
+                            {{ __('Link verifikasi baru telah dikirimkan ke email anda.') }}
                         </p>
                     @endif
                 </div>
@@ -51,11 +51,11 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Simpan') }}</x-primary-button>
+            <button type="submit" class="bg-[#1A2B3C] px-4 py-2 text-white rounded-xl">Simpan</button>
 
             @if (session('status') === 'profile-updated')
                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-white">{{ __('Saved.') }}</p>
+                    class="text-sm text-white">{{ __('Tersimpan.') }}</p>
             @endif
         </div>
     </form>

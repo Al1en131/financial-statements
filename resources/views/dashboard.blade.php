@@ -1,17 +1,18 @@
 <x-app-layout>
     <div class="mx-auto sm:pl-6 lg:pl-8">
-        <div class="relative mt-6 max-lg:mt-0 mb-14">
+        <div class="relative mt-6 max-lg:mt-0 mb-14 max-lg:mb-8">
             <div class="bg-white bg-opacity-5 overflow-hidden shadow-sm rounded-2xl">
                 <div class="pt-7 pb-14 px-12 text-white">
                     <h1 class="text-4xl mb-4 max-lg:mb-2 max-lg:text-2xl">Hi, {{ Auth::user()->name }}</h1>
-                    <p class="text-base">Ayo pantau keuangan organisasimu, sudah berapa tuh pengeluarannya?</p>
+                    <p class="text-base">Ayo pantau keuangan organisasimu, sudah berapa tuh
+                        pengeluarannya?</p>
                 </div>
             </div>
-            <div class="absolute -top-16 -right-10 max-lg:top-24 max-lg:-right-10 max-lg:w-60 max-lg:h-60">
+            <div class="absolute -top-16 -right-10 max-lg:top-[70px] max-md:hidden max-lg:-right-4 max-lg:w-60 max-lg:h-60">
                 <img src="{{ asset('/images/card-dashboard-1.png') }}" class="" alt="">
             </div>
         </div>
-        <p class="text-base text-white mb-4">
+        <p class="text-base text-white max-lg:justify-center max-lg:text-center mb-4">
             Aktivitas terbaru di <a href="{{ route('financial.index') }}" class="text-[#EC8305]">Laporan
                 Keuangan</a></p>
         <div class="justify-between flex gap-4 max-lg:justify-center max-lg:block">
@@ -145,7 +146,7 @@
                 </div>
             </div>
         </div>
-        <p class="text-base text-white mt-10 mb-4">Aktivitas terbaru di <a href="{{ route('cashfunds.index') }}"
+        <p class="text-base text-white mt-10 max-lg:mt-8 mb-4 max-lg:text-center">Aktivitas terbaru di <a href="{{ route('cashfunds.index') }}"
                 class="text-[#EC8305]">Uang
                 Kas</a></p>
         <div class="justify-between flex gap-4 max-lg:justify-center max-lg:block">
@@ -204,8 +205,8 @@
                 </div>
                 <div class="flex">
                     <img src="{{ asset('/images/card-dashboard-2.png') }}" class="" alt="">
-                    <div class="flex flex-col text-xs relative">
-                        <div class="bg-[#282E64] px-5 py-3 text-white rounded-tl-3xl rounded-br-3xl">
+                    <div class="flex flex-col text-xs max-lg:text-[8px] relative">
+                        <div class="bg-[#282E64] px-4 py-2 max-lg:py-1 max-lg:px-3 text-white rounded-tl-3xl rounded-br-3xl">
                             <p>
                                 Gak ada tuh pusing mikirin keuangan <span class="text-[#CF0]">organisasi</span> yang
                                 ganggu
@@ -213,7 +214,7 @@
                             </p>
                         </div>
                         <div
-                            class="bg-[#282E64] absolute bottom-20 px-5 max-lg:bottom-4 py-3 mt-2 text-white rounded-tl-3xl rounded-br-3xl">
+                            class="bg-[#282E64] absolute bottom-20 px-4 max-lg:py-1 max-lg:px-3 max-lg:bottom-20 py-2 mt-2 text-white rounded-tl-3xl rounded-br-3xl">
                             <p>
                                 Sama <span class="text-[#EC8305]">fin</span>Track urusan keuangan organisasimu pasti
                                 beres meow~~

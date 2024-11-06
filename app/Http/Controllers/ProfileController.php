@@ -63,9 +63,15 @@ class ProfileController extends Controller
 
     public function dashboard()
     {
-        $financialCount = Financial::count();
-        $cashfundCount = CashFund::count();
-        $financials = Financial::with('statements')->get();
+        $userId = auth()->user()->id;
+        $financialCount = Financial::where('user_id', $userId)->count();
+        $cashfundCount = CashFund::where('user_id', $userId)->count();
+        $financials = Financial::with(['statements' => function ($query) use ($userId) {
+            $query->whereHas('financial', function ($q) use ($userId) {
+                $q->where('user_id', $userId);
+            });
+        }])->where('user_id', $userId)->get();
+
         $totalPengeluaran = $financials->flatMap->statements->sum('debit');
         $totalPemasukan = $financials->flatMap->statements->sum('credit');
         $totalAmount = $totalPengeluaran + $totalPemasukan;
@@ -73,14 +79,20 @@ class ProfileController extends Controller
         $percentPemasukan = $totalAmount > 0 ? ($totalPemasukan / $totalAmount) * 100 : 0;
 
         $cashFunds = CashFund::with(['cashFundInformations.memberCash'])
+            ->where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
 
         $recentFinancialStatements = FinancialStatement::with('financial')
+            ->whereHas('financial', function ($q) use ($userId) {
+                $q->where('user_id', $userId);
+            })
             ->orderBy('updated_at', 'desc')
             ->take(3)
             ->get();
+
+
 
         return view('dashboard', compact('recentFinancialStatements', 'cashFunds', 'financialCount', 'cashfundCount', 'totalPengeluaran', 'totalPemasukan', 'percentPengeluaran', 'percentPemasukan'));
     }
