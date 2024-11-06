@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container pl-6 lg:pl-8">
         <div class="relative mt-6 max-lg:mt-0 mb-16 max-lg:mb-8">
-            <div class="absolute -top-6 left-10 max-lg:hidden max-lg:-right-10 max-lg:w-60 max-lg:h-60">
+            <div class="absolute top-2 left-7 max-lg:hidden max-lg:-right-10 w-64 h-64 max-lg:w-60 max-lg:h-60">
                 <img src="{{ asset('/images/icon-laporan-keuangan.png') }}" class="" alt="">
             </div>
             <div class="bg-white bg-opacity-5 overflow-hidden shadow-sm rounded-2xl">
@@ -206,7 +206,7 @@
                         @foreach ($members as $member)
                             <tr class="border-b border-white">
                                 <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
-                                    {{ $member->member_name }}
+                                    {{ Str::limit($member->member_name, 10) }}
                                 </th>
                                 <form
                                     action="{{ route('cashfund_informations.member_cash.update', [$cashFundInformation->id, $member->id]) }}"

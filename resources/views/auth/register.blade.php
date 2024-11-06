@@ -5,7 +5,7 @@
             <div class="absolute bg-black opacity-80 inset-0 z-0"></div>
             <div class="w-full px-24 z-10">
                 <h1 class="text-7xl"><span class="text-[#FC9E2D] font-bold ">fin</span>Track</h1>
-                <p class="text-3xl my-4">Dengan finTrack urusan keuangan organisasimu pasti beres
+                <p class="text-xl my-4">Dengan finTrack urusan keuangan organisasimu pasti beres
                 </p>
             </div>
         </div>
@@ -21,13 +21,13 @@
                     <div class="pb-2 pt-4">
                         <input type="text" name="name" :value="old('name')" required autofocus
                             autocomplete="name" placeholder="Nama" id="name"
-                            class="block w-full p-4 text-lg rounded-xl bg-transparent focus:border max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white">
+                            class="block w-full p-4 text-lg rounded-xl bg-transparent border border-white  focus:border max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white">
 
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
                     <div class="pb-2 pt-4">
                         <input
-                            class="block w-full p-4 text-lg rounded-xl bg-transparent focus:border max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white"
+                            class="block w-full p-4 text-lg rounded-xl bg-transparent border border-white  focus:border max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white"
                             type="email" name="email" :value="old('email')" id="email" placeholder="Email"
                             required autocomplete="username">
 
@@ -35,7 +35,7 @@
                     </div>
                     <div class="pb-2 pt-4">
                         <input
-                            class="block w-full p-4 text-lg rounded-xl bg-transparent focus:border max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white"
+                            class="block w-full p-4 text-lg rounded-xl bg-transparent border border-white focus:border max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white"
                             type="password" name="password" required autocomplete="new-password" placeholder="Password"
                             id="password">
 
@@ -43,7 +43,7 @@
                     </div>
                     <div class="pb-2 pt-4">
                         <input
-                            class="block w-full p-4 text-lg rounded-xl bg-transparent focus:border max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white"
+                            class="block w-full p-4 text-lg rounded-xl bg-transparent focus:border border border-white  max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white"
                             type="password" id="password_confirmation" placeholder="Konfirmasi Password"
                             name="password_confirmation" required autocomplete="new-password">
 

@@ -5,7 +5,7 @@
             <div class="absolute bg-black opacity-75 inset-0 z-0"></div>
             <div class="w-full px-24 z-10">
                 <h1 class="text-7xl"><span class="text-[#FC9E2D] font-extrabold ">fin</span>Track</h1>
-                <p class="text-2xl my-4">Selamat datang di <span class="text-[#FC9E2D] font-bold ">fin</span>Track, solusi terpercaya untuk pengelolaan keuangan organisasi kamu
+                <p class="text-lg my-4">Selamat datang di <span class="text-[#FC9E2D] font-bold ">fin</span>Track, solusi terpercaya untuk pengelolaan keuangan organisasi kamu
                 </p>
             </div>
         </div>
@@ -21,13 +21,13 @@
                     <div class="pb-2 pt-4">
                         <input type="email" name="email" :value="old('email')" required autofocus
                             autocomplete="username" id="email" placeholder="Email"
-                            class="block w-full p-4 text-lg rounded-xl bg-transparent focus:border max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white">
+                            class="block w-full p-4 text-lg rounded-xl bg-transparent border border-white  focus:border max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white">
 
                         <x-input-error :messages="$errors->get('email')" class="mt-2 " />
                     </div>
                     <div class="pb-2 pt-4">
                         <input
-                            class="block w-full p-4 text-lg rounded-xl bg-transparent focus:border max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white"
+                            class="block w-full p-4 text-lg rounded-xl border border-white  bg-transparent focus:border max-lg:bg-black max-lg:bg-opacity-30 focus:border-white focus:ring-white"
                             type="password" name="password" required autocomplete="current-password" id="password"
                             placeholder="Password">
 

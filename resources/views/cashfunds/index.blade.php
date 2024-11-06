@@ -121,7 +121,7 @@
                         </div>
                         <div class="h-50 ml-4 flex w-auto flex-col justify-center text-white">
                             <a href="{{ route('cashfunds.informations.index', $cashFund->id) }}">
-                                {{ Str::limit($cashFund->cash_fund_name, 28) }}</a>
+                                {{ Str::limit($cashFund->cash_fund_name, 23) }}</a>
                         </div>
                         <div class="absolute px-4 right-0">
                             <button onclick="toggleDropdown({{ $cashFund->id }})" class="focus:outline-none">

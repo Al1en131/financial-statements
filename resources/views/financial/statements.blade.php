@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container lg:pl-8 pl-6">
         <div class="relative mt-6 max-lg:mt-0 mb-16 max-lg:mb-8">
-            <div class="absolute -top-6 left-10 max-lg:hidden max-lg:-right-10 max-lg:w-60 max-lg:h-60">
+            <div class="absolute top-2 left-7 max-lg:hidden max-lg:-right-10 w-64 h-64 max-lg:w-60 max-lg:h-60">
                 <img src="{{ asset('/images/icon-laporan-keuangan.png') }}" class="" alt="">
             </div>
             <div class="bg-white bg-opacity-5 overflow-hidden shadow-sm rounded-2xl">

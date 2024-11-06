@@ -140,7 +140,7 @@
                         <div class="h-50 ml-4 flex w-auto flex-col justify-center text-white">
                             <a href="{{ route('financial.showStatements', $financial->id) }}"
                                 class="text-lg font-bold max-lg:hidden ">
-                                {{ Str::limit($financial->financial_name, 20) }}</a>
+                                {{ Str::limit($financial->financial_name, 15) }}</a>
                             <a href="{{ route('financial.showStatements', $financial->id) }}"
                                 class="text-lg max-lg:text-base font-bold max-lg:contents hidden ">
                                 {{ Str::limit($financial->financial_name, 15) }}</a>

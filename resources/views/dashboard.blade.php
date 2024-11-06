@@ -93,7 +93,7 @@
                         </defs>
                     </svg>
                     <div class="flex flex-col text-white w-1/2 text-center justify-center">
-                        <h1 class="text-4xl">{{ $financialCount }}</h1>
+                        <h1 class="text-3xl">{{ $financialCount }}</h1>
                         <p class="text-base leading-5">Laporan keuangan </p>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                             stroke-linejoin="round" />
                     </svg>
                     <div class="flex flex-col text-white w-1/2 text-center justify-center">
-                        <h1 class="text-4xl">{{ $cashfundCount }}</h1>
+                        <h1 class="text-3xl">{{ $cashfundCount }}</h1>
                         <p class="text-base leading-5">Uang Kas</p>
                     </div>
                 </div>
@@ -135,8 +135,8 @@
                             stroke-linejoin="round" />
                     </svg>
                     <div class="flex flex-col text-white w-1/2 text-center justify-center">
-                        <h1 class="text-4xl">
-                            {{ $percentPengeluaran }}%
+                        <h1 class="text-3xl">
+                            {{ $percentPemasukan }}%
                         </h1>
                         <p class="text-base leading-5">Pengeluaran</p>
                     </div>
@@ -155,7 +155,7 @@
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <div class="flex flex-col text-white text-center w-1/2 justify-center">
-                        <h1 class="text-4xl"> {{ $percentPengeluaran }}%
+                        <h1 class="text-3xl"> {{ $percentPengeluaran }}%
                             <p class="text-base leading-5">Pemasukan</p>
                     </div>
                 </div>
@@ -184,10 +184,17 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="">
-                            @forelse ($cashFunds as $fund)
-                                @forelse ($fund->cashFundInformations as $info)
-                                    @forelse ($info->memberCash as $member)
+                        <tbody>
+                            @php
+                                $noData = true;
+                            @endphp
+
+                            @foreach ($cashFunds as $fund)
+                                @foreach ($fund->cashFundInformations as $info)
+                                    @foreach ($info->memberCash as $member)
+                                        @php
+                                            $noData = false;
+                                        @endphp
                                         <tr class="border-b border-white">
                                             <td class="px-6 py-4 font-medium text-center text-white whitespace-nowrap">
                                                 {{ Str::limit($fund->cash_fund_name, 15) }}
@@ -206,38 +213,15 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="4" class="px-6 py-4 text-center text-white">
-                                                <div
-                                                    class="col-span-3 text-center flex justify-center items-center text-white pb-2 pt-10">
-                                                    <img src="{{ asset('/images/nothing-activity.png') }}"
-                                                        class="" alt="">
-                                                </div>
-                                                <p class="text-center text-white flex justify-center col-span-3">Belum
-                                                    ada
-                                                    aktivitas</p>
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                @empty
-                                    <tr>
-                                        <td colspan="4" class="px-6 py-4 text-center text-white">
-                                            <div
-                                                class="col-span-3 text-center flex justify-center items-center text-white pb-2 pt-10">
-                                                <img src="{{ asset('/images/nothing-activity.png') }}" class=""
-                                                    alt="">
-                                            </div>
-                                            <p class="text-center text-white flex justify-center col-span-3">Belum ada
-                                                aktivitas</p>
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            @empty
+                                    @endforeach
+                                @endforeach
+                            @endforeach
+
+                            @if ($noData)
                                 <tr>
                                     <td colspan="4" class="px-6 py-4 text-center text-white">
                                         <div
-                                            class="col-span-3 text-center flex justify-center items-center text-white pb-2 pt-10">
+                                            class="col-span-3 text-center flex justify-center items-center pt-10 text-white pb-2">
                                             <img src="{{ asset('/images/nothing-activity.png') }}" class=""
                                                 alt="">
                                         </div>
@@ -245,7 +229,7 @@
                                             aktivitas</p>
                                     </td>
                                 </tr>
-                            @endforelse
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -258,7 +242,7 @@
                 </div>
                 <div class="flex">
                     <img src="{{ asset('/images/card-dashboard-2.png') }}" class="" alt="">
-                    <div class="flex flex-col text-xs max-lg:text-[8px] relative">
+                    <div class="flex flex-col text-[9px] max-lg:text-[8px] relative">
                         <div
                             class="bg-[#282E64] px-4 py-2 max-lg:py-1 max-lg:px-3 text-white rounded-tl-3xl rounded-br-3xl">
                             <p>
