@@ -14,6 +14,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
 </head>
 
 <body class="relative bg-[#202239] antialiased text-white font-sans">
@@ -23,19 +29,9 @@
             <div class="text-2xl font-bold">
                 <span class="text-orange-400">fin</span>Track
             </div>
-
-            <!-- Hamburger Menu Icon -->
-            <button id="menu-btn" class="md:hidden focus:outline-none" onclick="toggleMenu()">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
-                    </path>
-                </svg>
-            </button>
-
             <!-- Navigation Menu and Buttons for Desktop -->
             <div id="menu"
-                class="hidden h-1/2 fixed inset-20 bg-black bg-opacity-80 md:bg-opacity-0 md:relative md:flex md:inset-auto md:bg-transparent flex-col md:flex-row md:items-center md:space-x-6 p-8 md:p-0">
+                class="hidden h-1/2 fixed inset-20 gap-36 bg-black bg-opacity-80 md:bg-opacity-0 md:relative md:flex md:inset-auto md:bg-transparent flex-col md:flex-row md:items-center md:space-x-6 p-8 md:p-0">
                 <nav class="flex flex-col md:flex-row md:items-center md:space-x-6 space-y-4 md:space-y-0 text-center">
                     <a href="#home" class="text-white hover:text-blue-300">Home</a>
                     <a href="#about" class="text-white hover:text-blue-300">About</a>
@@ -46,26 +42,23 @@
                 <!-- Buttons (will also be in the dropdown on mobile) -->
                 <div
                     class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 mt-4 md:mt-0 text-center max-lg:w-full">
-                    <button
-                        class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 rounded-[35px] border-2 border-[#5a98e8] max-lg:w-full">Login</button>
-                    <button
-                        class="w-[130px] h-[45.25px] bg-[#5a98e8] rounded-[59px] border border-[#202239] max-lg:w-full"">Register</button>
+                    <a href="{{ route('login') }}"
+                        class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 py-2 rounded-[35px] border-2 border-[#5a98e8] max-lg:w-full">Login</a>
+                    <a href="{{ route('register') }}"
+                        class="w-[130px] h-[45.25px] bg-[#5a98e8] py-2 rounded-[59px] border border-[#202239] max-lg:w-full">Register</a>
                 </div>
             </div>
+            <!-- Hamburger Menu Icon -->
+            <button id="menu-btn" class="md:hidden focus:outline-none" onclick="toggleMenu()">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
+            </button>
         </div>
 
     </header>
-
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById('menu');
-            menu.classList.toggle('hidden');
-        }
-    </script>
-
-
-
-
     <!-- Hero Section -->
     <section class="px-8 max-lg:px-6 pt-12 max-lg:pt-20" id="home">
         <div class="m-6 max-lg:m-0 container mx-auto flex justify-center items-center">
