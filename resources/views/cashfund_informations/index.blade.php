@@ -11,7 +11,8 @@
                         <p class="text-base px-8 text-center">Kalo tamu <span class="text-[#EC8305]">wajib
                                 lapor</span>, kalo
                             bendahara wajib apa? ya sama, <span class="text-[#EC8305]">wajib lapor</span> juga
-                            xixixi</p>
+                            xixixi
+                        </p>
                     </div>
                 </div>
             </div>
