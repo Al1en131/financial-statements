@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class=" fixed top-0 z-50 w-full">
+<nav x-data="{ open: false }" class=" fixed top-0 z-50 max-lg:z-20 w-full">
     <div class="mx-auto px-6 sm:px-6 lg:pl-12 lg:pr-8">
         <div class="flex justify-between h-16">
             <div class="flex">

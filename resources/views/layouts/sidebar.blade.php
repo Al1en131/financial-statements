@@ -119,7 +119,6 @@
             </li>
         </ul>
     </div>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         const sidebar = document.getElementById('logo-sidebar');
         const toggleButton = document.getElementById('sidebar-toggle');
