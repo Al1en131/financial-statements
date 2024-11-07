@@ -39,7 +39,7 @@
 
             <!-- Centered Navigation Menu and Buttons for Desktop -->
             <div id="menu"
-                class="hidden fixed max-lg:w-full top-28 w-3/5 inset-0 max-lg:mb-80 max-lg:px-6 bg-black bg-opacity-80 rounded-3xl md:relative md:flex md:inset-auto md:bg-transparent md:bg-opacity-0 flex-col md:flex-row md:items-center md:justify-center md:space-x-6 p-8 md:p-0">
+                class="hidden fixed top-28 md:w-3/5 max-lg:mx-6 inset-0 max-lg:h-96 bg-black bg-opacity-80 rounded-3xl md:relative md:flex md:inset-auto md:bg-transparent md:bg-opacity-0 flex-col md:flex-row md:items-center md:justify-center md:space-x-6 py-8 md:p-0">
                 <nav class="flex flex-col md:flex-row md:items-center md:space-x-10 space-y-4 md:space-y-0 text-center">
                     <a href="#home" class="text-white hover:text-blue-300">Home</a>
                     <a href="#about" class="text-white hover:text-blue-300">About</a>
@@ -167,7 +167,7 @@
                     <div class="flex items-start">
                         <div class="p-4 flex items-center md:w-[600px] w-full h-[102px] rounded-[17px] shadow-lg  md:mr-12"
                             style="background:linear-gradient(90deg, rgba(54, 89, 111, 0.20) 46%, rgba(255, 255, 255, 0.20) 100%);">
-                            <img src="{{ asset('images/Graph square.svg') }}" alt="Icon 1"
+                            <img src="{{ asset('images/Graph Square.svg') }}" alt="Icon 1"
                                 class="md:w-[59px] h-[59px]  mr-3">
                             <p class="text-white  max-lg:text-sm">Rekapitulasi pendapatan, pengeluaran, dan saldo
                                 otomatis.</p>
