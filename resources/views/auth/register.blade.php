@@ -1,7 +1,7 @@
 <x-guest-layout>
     <section class="min-h-screen flex items-stretch text-white ">
         <div class="lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center"
-            style="background-image: url('{{ asset('images/login.jpeg') }}');">
+            style="background-image: url('{{ asset('images/auth.jpg') }}');">
             <div class="absolute bg-black opacity-80 inset-0 z-0"></div>
             <div class="w-full px-24 z-10">
                 <h1 class="text-7xl"><span class="text-[#FC9E2D] font-bold ">fin</span>Track</h1>
@@ -12,7 +12,7 @@
         <div class="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0"
             style="background: linear-gradient(243deg, #20374D 0%, #1A2B3C 39.87%, #1A2B3C 70.96%);">
             <div class="absolute lg:hidden z-10 inset-0 bg-gray-500 bg-no-repeat bg-cover items-center"
-                style="background-image: url('{{ asset('images/login.jpeg') }}');">
+                style="background-image: url('{{ asset('images/auth.jpg') }}');">
                 <div class="absolute bg-[#20223A] opacity-60 inset-0 z-0"></div>
             </div>
             <div class="w-full py-6 z-20">
