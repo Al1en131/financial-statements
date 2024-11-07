@@ -314,7 +314,7 @@
     </section>
 
     <!-- Team Section -->
-    <section class="py-10 px-8 max-lg:px-6 relative" id="team">
+    <section class="pt-10 pb-20 px-8 max-lg:px-6 relative" id="team">
         <div class="absolute right-0 -bottom-16 -z-0 max-lg:hidden"
             style="width: 342px;height: 409.556px;flex-shrink: 0;background: #024CAA;filter: blur(242.35000610351562px);">
         </div>
@@ -323,7 +323,7 @@
             <div class="w-full">
                 <!-- Judul Bagian -->
                 <div class="text-center mb-12">
-                    <div class="relative inline-flex flex-col items-center ml-8 mb-4">
+                    <div class="relative inline-flex flex-col items-center mb-4">
                         <h2 class="text-2xl font-bold max-lg:text-center">
                             Meet the <span class="text-orange-400">Team</span>
                         </h2>
