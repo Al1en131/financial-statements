@@ -73,7 +73,7 @@ class FinancialController extends Controller
     public function storeStatement(Request $request, $financialId)
     {
         $request->validate([
-            'image' =>  'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'date' => 'required|date',
             'debit' => 'required|numeric|min:0',
             'credit' => 'required|numeric|min:0',
@@ -87,11 +87,16 @@ class FinancialController extends Controller
         $lastBalance = $lastStatement ? $lastStatement->balance : 0;
 
         $balance = $lastBalance + $request->debit - $request->credit;
-        $image = $request->file('image');
-        $image->storeAs('public/image', $image->hashName());
+
+        // Check if an image was uploaded
+        $imagePath = null; // Default to null if no image uploaded
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imagePath = $image->storeAs('public/image', $image->hashName());
+        }
 
         FinancialStatement::create([
-            'image' => $image->hashName(),
+            'image' => $imagePath, // If image is null, it will be stored as null
             'date' => $request->date,
             'financial_id' => $financialId,
             'debit' => $request->debit,
@@ -102,6 +107,7 @@ class FinancialController extends Controller
 
         return redirect()->route('financial.showStatements', $financialId)->with('success', 'Data berhasil ditambahkan');
     }
+
 
     public function destroy($id)
     {

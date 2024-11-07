@@ -5,17 +5,16 @@
     </svg>
 </button>
 <aside id="logo-sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white max-lg:bg-opacity-85 max-lg:bg-[#1A2B3C] bg-opacity-5 rounded-r-3xl sm:translate-x-0"
+    class="fixed top-0 left-0 z-40 w-64 h-screen  transition-transform -translate-x-full bg-white max-lg:bg-opacity-85 max-lg:bg-[#1A2B3C] bg-opacity-5 rounded-r-3xl sm:translate-x-0"
     aria-label="Sidebar">
     <div class="h-full px-4 pt-24 sm:px-6 lg:px-8 pb-4 overflow-y-auto ">
         <ul class="space-y-6 font-medium">
             <li>
                 <a href="{{ route('dashboard') }}"
                     class="flex items-center p-3 text-sm text-white rounded-lg 
-                    hover:text-[#63C3FF] hover:bg-[#20223A]
-                    {{ request()->routeIs('dashboard') ? 'text-[#63C3FF] bg-[#20223A]' : '' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none">
+                hover:text-[#63C3FF] hover:bg-[#20223A] {{ request()->routeIs(['dashboard','dashboard']) ? 'text-[#63C3FF] bg-[#20223A]' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex flex-shrink-0" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none">
                         <path d="M2 5C2 3.89543 2.89543 3 4 3H10V21H4C2.89543 21 2 20.1046 2 19V5Z"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M14 3H20C21.1046 3 22 3.89543 22 5V10H14V3Z" stroke="currentColor" stroke-width="2"
@@ -23,8 +22,9 @@
                         <path d="M14 14H22V19C22 20.1046 21.1046 21 20 21H14V14Z" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <span class="ms-3">Dashboard</span>
+                    <span class="ml-3">Dashboard</span>
                 </a>
+
             </li>
             <li>
                 <a href="{{ route('financial.index') }}"

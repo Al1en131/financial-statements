@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="mx-auto pl-6 lg:pl-8">
+    <div class="container pl-6 lg:pl-8">
         <div class="relative mt-6 max-lg:mt-0 mb-14 max-lg:mb-8">
             <div class="bg-white bg-opacity-5 overflow-hidden shadow-sm rounded-2xl">
                 <div class="pt-7 pb-14 px-12 text-white">

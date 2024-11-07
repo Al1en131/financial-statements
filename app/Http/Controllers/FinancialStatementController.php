@@ -56,36 +56,45 @@ class FinancialStatementController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Nullable validation
             'date' => 'required|date',
             'information' => 'required|string|max:255',
             'debit' => 'nullable|numeric|min:0',
             'credit' => 'nullable|numeric|min:0',
         ]);
 
+        // Find the statement by ID
         $statement = FinancialStatement::findOrFail($id);
-        $statement->information = $request->input('information');
-        $statement->debit = $request->input('debit', $statement->debit); 
-        $statement->credit = $request->input('credit', $statement->credit); 
-        $statement->date = $request->input('date'); 
 
+        // Update the fields with provided data, or keep the existing ones
+        $statement->information = $request->input('information');
+        $statement->debit = $request->input('debit', $statement->debit);
+        $statement->credit = $request->input('credit', $statement->credit);
+        $statement->date = $request->input('date');
+
+        // Calculate the new balance
         $lastBalance = $statement->balance;
         $statement->balance = $lastBalance + $statement->debit - $statement->credit;
 
+        // Handle the image update
         if ($request->hasFile('image')) {
+            // Delete the old image if one exists
             if ($statement->image) {
                 Storage::delete('public/image/' . $statement->image);
             }
 
+            // Store the new image and update the image field
             $image = $request->file('image');
             $image->storeAs('public/image', $image->hashName());
             $statement->image = $image->hashName();
         }
 
+        // Save the updated statement
         $statement->save();
 
         return redirect()->back()->with('success', 'Data berhasil diupdate');
     }
+
 
 
     public function destroy($id)
@@ -106,8 +115,8 @@ class FinancialStatementController extends Controller
         foreach ($statements as $statement) {
             $totalDebit += $statement->debit;
             $totalCredit += $statement->credit;
-            $statement->balance = $totalDebit - $totalCredit; 
-            $statement->save(); 
+            $statement->balance = $totalDebit - $totalCredit;
+            $statement->save();
         }
     }
 }
