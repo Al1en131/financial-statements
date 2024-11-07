@@ -7,7 +7,7 @@
 <aside id="logo-sidebar"
     class="fixed top-0 left-0 z-40 w-64 h-screen  transition-transform -translate-x-full bg-white max-lg:bg-opacity-85 max-lg:bg-[#1A2B3C] bg-opacity-5 rounded-r-3xl sm:translate-x-0"
     aria-label="Sidebar">
-    <div class="h-full px-4 pt-24 sm:px-6 lg:px-8 pb-4 overflow-y-auto ">
+    <div class="h-full px-4 pt-24 max-lg:pt-6 sm:px-6 lg:px-8 pb-4 overflow-y-auto ">
         <ul class="space-y-6 font-medium">
             <li>
                 <a href="{{ route('dashboard') }}"
