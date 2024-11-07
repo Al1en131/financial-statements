@@ -235,7 +235,10 @@
                 </div>
 
             </div>
-            <div class="flex flex-col justify-center items-center max-lg:mb-8 gap-2 w-5/12 max-lg:w-full">
+            <div class="flex flex-col relative justify-center items-center max-lg:mb-8 gap-2 w-5/12 max-lg:w-full">
+                <div class="-z-0 absolute bottom-20 "
+                    style="background: #FFF;filter: blur(88.05000305175781px);width: 77px;height: 94px;flex-shrink: 0;">
+                </div>
                 <div
                     class="bg-white bg-opacity-25 px-10 mb-4 py-4 w-full max-lg:w-full text-base text-center rounded-lg text-white">
                     Pakai <span class="text-[#EC8305]">fin</span>Track, belajar oke, organisasi oke
