@@ -2,8 +2,8 @@
     <div class="mx-auto px-6 sm:px-6 lg:pl-12 lg:pr-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <div class="shrink-0 flex items-center">
-                    <a href="">
+                <div class="shrink-0 flex items-center ">
+                    <a href="{{ route('welcome') }}">
                         <svg width="115" height="22" viewBox="0 0 115 22" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path

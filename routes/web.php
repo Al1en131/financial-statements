@@ -8,9 +8,9 @@ use App\Http\Controllers\MemberCashController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', [ProfileController::class, 'dashboard'])
     ->middleware(['auth', 'verified'])

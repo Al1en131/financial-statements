@@ -9,13 +9,16 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=poppins:400,500,600&display=swap" rel="stylesheet">
+
+    <!-- Flowbite CSS -->
     <link href="https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" rel="stylesheet">
-    <link href="https://fonts.bunny.net/css?family=poppins:400,500,600&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
         function toggleMenu() {
             const menu = document.getElementById('menu');
@@ -24,7 +27,8 @@
     </script>
 </head>
 
-<body class="relative bg-[#20223A] antialiased text-white font-sans">
+
+<body class="relative font-sans bg-[#20223A] antialiased text-white">
     <div style="background: #0070FF; filter: blur(242.35px);width: 365px;height: 372px;"
         class="absolute max-lg:hidden -z-5 right-0 top-0">
     </div>
@@ -32,14 +36,14 @@
         <div
             class="container mx-auto flex justify-between items-center p-4 bg-white bg-opacity-10 rounded-[50px] mt-3 md:px-8">
             <!-- Logo -->
-            <div class="text-2xl font-bold">
+            <div class="text-2xl w-1/5 max-lg:w-full font-bold">
                 <span class="text-orange-400">fin</span>Track
             </div>
 
             <!-- Centered Navigation Menu and Buttons for Desktop -->
             <div id="menu"
-                class="hidden fixed top-28 inset-0 max-lg:mb-80 max-lg:px-6 max-lg:mx-6 bg-black bg-opacity-80 rounded-3xl md:relative md:flex md:inset-auto md:bg-transparent md:bg-opacity-0 flex-col md:flex-row md:items-center md:justify-center md:space-x-6 p-8 md:p-0">
-                <nav class="flex flex-col md:flex-row md:items-center md:space-x-6 space-y-4 md:space-y-0 text-center">
+                class="hidden fixed max-lg:w-full top-28 w-3/5 inset-0 max-lg:mb-80 max-lg:px-6 bg-black bg-opacity-80 rounded-3xl md:relative md:flex md:inset-auto md:bg-transparent md:bg-opacity-0 flex-col md:flex-row md:items-center md:justify-center md:space-x-6 p-8 md:p-0">
+                <nav class="flex flex-col md:flex-row md:items-center md:space-x-10 space-y-4 md:space-y-0 text-center">
                     <a href="#home" class="text-white hover:text-blue-300">Home</a>
                     <a href="#about" class="text-white hover:text-blue-300">About</a>
                     <a href="#howitworks" class="text-white hover:text-blue-300">How it works</a>
@@ -48,7 +52,7 @@
 
                 <!-- Auth-based buttons for desktop and mobile -->
                 <div
-                    class="flex flex-col justify-center items-center md:flex-row md:space-x-4 space-y-4 md:space-y-0 mt-4 md:mt-0 text-center max-lg:w-full">
+                    class="flex flex-col justify-center items-center md:flex-row md:space-x-4 space-y-4 md:space-y-0 mt-4 md:hidden md:mt-0 text-center max-lg:w-full">
                     @auth
                         <a href="{{ route('dashboard') }}"
                             class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 py-2 rounded-[35px] hover:text-[#20223A] hover:bg-[#5a98e8] border-2 border-[#5a98e8]">
@@ -67,10 +71,8 @@
                 </div>
             </div>
 
-
-
             <!-- Buttons (only visible on larger screens) -->
-            <div class="hidden md:flex md:justify-center text-center space-x-4">
+            <div class="hidden md:flex w-1/5 max-lg:w-full md:justify-end text-center space-x-4">
                 @auth
                     <a href="{{ route('dashboard') }}"
                         class="w-[130px] h-[45.25px] bg-[#d9d9d9]/0 py-2 rounded-[35px] hover:text-[#20223A] hover:bg-[#5a98e8] border-2 border-[#5a98e8]">Dashboard</a>
