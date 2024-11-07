@@ -79,24 +79,27 @@ class FinancialController extends Controller
             'credit' => 'required|numeric|min:0',
             'information' => 'required|string|max:255',
         ]);
-
+    
+        // Mendapatkan saldo terakhir
         $lastStatement = FinancialStatement::where('financial_id', $financialId)
             ->orderBy('created_at', 'desc')
             ->first();
-
         $lastBalance = $lastStatement ? $lastStatement->balance : 0;
-
+    
+        // Menghitung saldo baru
         $balance = $lastBalance + $request->debit - $request->credit;
-
-        // Check if an image was uploaded
-        $imagePath = null; // Default to null if no image uploaded
+    
+        // Memproses file image jika ada
+        $imageName = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imagePath = $image->storeAs('public/image', $image->hashName());
+            $image->storeAs('public/image', $image->hashName());
+            $imageName = $image->hashName();
         }
-
+    
+        // Menyimpan data ke database
         FinancialStatement::create([
-            'image' => $imagePath, // If image is null, it will be stored as null
+            'image' => $imageName,
             'date' => $request->date,
             'financial_id' => $financialId,
             'debit' => $request->debit,
@@ -104,7 +107,7 @@ class FinancialController extends Controller
             'balance' => $balance,
             'information' => $request->information,
         ]);
-
+    
         return redirect()->route('financial.showStatements', $financialId)->with('success', 'Data berhasil ditambahkan');
     }
 

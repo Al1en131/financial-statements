@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('credit', 15, 2)->default(0);
             $table->decimal('balance', 15, 2)->default(0);
             $table->date('date');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

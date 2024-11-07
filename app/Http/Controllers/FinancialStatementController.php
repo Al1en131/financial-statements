@@ -56,44 +56,39 @@ class FinancialStatementController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Nullable validation
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'date' => 'required|date',
             'information' => 'required|string|max:255',
             'debit' => 'nullable|numeric|min:0',
             'credit' => 'nullable|numeric|min:0',
         ]);
 
-        // Find the statement by ID
         $statement = FinancialStatement::findOrFail($id);
-
-        // Update the fields with provided data, or keep the existing ones
         $statement->information = $request->input('information');
         $statement->debit = $request->input('debit', $statement->debit);
         $statement->credit = $request->input('credit', $statement->credit);
         $statement->date = $request->input('date');
 
-        // Calculate the new balance
+        // Menghitung saldo baru
         $lastBalance = $statement->balance;
         $statement->balance = $lastBalance + $statement->debit - $statement->credit;
 
-        // Handle the image update
+        // Memproses file image jika ada
         if ($request->hasFile('image')) {
-            // Delete the old image if one exists
             if ($statement->image) {
                 Storage::delete('public/image/' . $statement->image);
             }
 
-            // Store the new image and update the image field
             $image = $request->file('image');
             $image->storeAs('public/image', $image->hashName());
             $statement->image = $image->hashName();
         }
 
-        // Save the updated statement
         $statement->save();
 
         return redirect()->back()->with('success', 'Data berhasil diupdate');
     }
+
 
 
 
